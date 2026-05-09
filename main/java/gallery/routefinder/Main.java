@@ -313,7 +313,7 @@ public class Main extends Application {
     private void findAnyRoute() {
         if (!validateSelections()) return;
         statusLabel.setText("Finding any route...");
-        List<GraphNode> route = routeFinder.findAnyRoute(graph, getStart(), getEnd(), avoidRooms, waypoints);
+        List<GraphNode> route = routeFinder.findSingleRoute(graph, getStart(), getEnd(), avoidRooms, waypoints);
         displayResult(route, "Any Route");
     }
 
@@ -325,7 +325,7 @@ public class Main extends Application {
         maxRoutes = Math.min(maxRoutes, 20);
 
         statusLabel.setText("Finding multiple routes...");
-        foundRoutes = routeFinder.findMultipleRoutes(graph, getStart(), getEnd(), maxRoutes, avoidRooms, waypoints);
+        foundRoutes = routeFinder.findMultipleRoutes(graph, getStart(), getEnd(), maxRoutes, avoidRooms, waypoints,null);
 
         routesListView.getItems().clear();
         for (int i = 0; i < foundRoutes.size(); i++) {

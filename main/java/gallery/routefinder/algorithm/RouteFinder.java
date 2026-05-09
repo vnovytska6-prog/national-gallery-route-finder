@@ -1,36 +1,44 @@
 package gallery.routefinder.algorithm;
 
+import gallery.routefinder.graph.Graph;
 import gallery.routefinder.graph.GraphEdge;
 import gallery.routefinder.graph.GraphNode;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 public class RouteFinder {
 
-    //Find all paths using DepthFirst
-    public static <T> List<List<GraphNode>> findAllPathsDepthFirst(GraphNode from, List<GraphNode> encountered, T lookingFor) {
-        List<List<GraphNode>> result=null, temp2;
+    public static List<GraphNode> findSingleRoute(Graph graph, GraphNode from, GraphNode lookingFor, Set<String> avoid, List<GraphNode> waypoints){
+        return findMultipleRoutes(graph,from,lookingFor,1,avoid,waypoints,null).getFirst();
+    }
 
-        if (from.getRoom().equals(lookingFor)) {
-            List<GraphNode> temp=new ArrayList<>();
+    //Find all paths using DepthFirst
+    public static <T> List<List<T>> findMultipleRoutes(Graph graph, T from, T lookingFor, int max, Set<String> avoid, List<T> waypoints, List<T> encountered) {
+        List<List<T>> result=null, temp2;
+
+        if(from==null) return result;
+
+        if (from.equals(lookingFor)) {
+            List<T> temp=new ArrayList<>();
             temp.add(from);
             result=new ArrayList<>();
             result.add(temp);
             return result;
         }
 
-        if (encountered == null) encountered = new ArrayList<>();
+        if(encountered==null) encountered=new ArrayList<>();
         encountered.add(from);
 
-        for (GraphNode n : from.getNodes())
-            if (!encountered.contains(n)) {
-                temp2=findAllPathsDepthFirst(n, new ArrayList<>(encountered), lookingFor);
+        for (gallery.routefinder.graph.GraphNode n : graph.getAllNodes())
+            if (!encountered.contains((T)n)) {
+                temp2=findMultipleRoutes(graph, (T) n, lookingFor, max, avoid, waypoints, new ArrayList<>(encountered));
 
                 if (temp2 != null) {
-                    for(List<GraphNode> list : temp2)
-                        list.add(0,from);
+                    for(List<T> list : temp2)
+                        list.addFirst(from);
                     if(result==null) result=temp2;
                     else result.addAll(temp2);
                 }
@@ -39,23 +47,24 @@ public class RouteFinder {
     }
 
     //Find the shortest path using BreadthFirst
-    public static <T> List<GraphNode> findPathBreadthFirst(GraphNode from, T lookingFor) {
+    public static <T> List<GraphNode> bfsShortestPath(Graph graph, GraphNode from, T lookingFor, Set<String> avoid, List<GraphNode> waypoints) {
         List<List<GraphNode>> agenda=new ArrayList<>();
         List<GraphNode> firstAgendaPath=new ArrayList<>(),resultPath;
         firstAgendaPath.add(from);
         agenda.add(firstAgendaPath);
-        resultPath=findPathBreadthFirst(agenda,null,lookingFor);
+        resultPath=findPathBreadthFirst(agenda,null,lookingFor, avoid, waypoints);
         Collections.reverse(resultPath);
         return resultPath;
     }
 
-    public static <T> List<GraphNode> findPathBreadthFirst(List<List<GraphNode>> agenda, List<GraphNode> encountered ,T lookingFor) {
+    public static <T> List<GraphNode> findPathBreadthFirst(List<List<GraphNode>> agenda, List<GraphNode> encountered ,T lookingFor, Set<String> avoid, List<GraphNode> waypoints) {
         if(agenda.isEmpty()) return null;
         List<GraphNode> nextPath=agenda.removeFirst();
         GraphNode current=nextPath.getFirst();
         if(current.getRoom().equals(lookingFor)) return nextPath;
         if (encountered == null) encountered = new ArrayList<>();
         encountered.add(current);
+
         for (GraphNode n : current.getNodes()) {
             if (!encountered.contains(n)) {
                 List<GraphNode> newPath=new ArrayList<>(nextPath);
@@ -63,7 +72,7 @@ public class RouteFinder {
                 agenda.add(newPath);
             }
         }
-        return findPathBreadthFirst(agenda,encountered,lookingFor);
+        return findPathBreadthFirst(agenda,encountered,lookingFor, avoid, waypoints);
     }
 
     //Find the shortest path using Dijkstra's
@@ -72,7 +81,7 @@ public class RouteFinder {
         public List<GraphNode> pathList=new ArrayList<>();
     }
 
-    public static <T> CostedPath findCheapestPathDijkstra(GraphNode from, T lookingFor){
+    public static <T> CostedPath dijkstraShortestPath(Graph graph, GraphNode from, T lookingFor, Set<String> avoid, List<GraphNode> waypoints) {
         CostedPath cp= new CostedPath();
         List<GraphNode> encountered=new ArrayList<>(), unEncountered=new ArrayList<>();
         from.setDistanceFromStart(0);
