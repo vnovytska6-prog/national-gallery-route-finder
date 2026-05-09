@@ -1,60 +1,806 @@
-roomId,title,artist,thumbnail
-1,Scrub,George Stubbs,stubbs1.jpg
-2,An Allegory with Venus and Cupid,Bronzino,bronzino1.jpg
-2,Portrait of a Young Man,Bronzino,bronzino2.jpg
-2,The Madonna and Child with Saints,Bronzino,bronzino3.jpg
-2,The Entombment(or Christ being carried to his Tomb),Michelangelo,michelangelo1.jpg
-2,Pope Julius II,Raphael,raphael1.jpg
-2,Portrait of a Young Man,Andrea del Sarto,delSarto1.jpg
-2,The Madonna and Child with Saint Elizabeth and the Baptist,Andrea del Sarto,delSarto2.jpg
-2,Portrait of a Lady,Sebastiano del Piombo,delPiombo1.jpg
-2,The Madonna and Child with Saints and a Donor,Sebastiano del Piombo,delPiombo2.jpg
-2,The Raising of Lazarus,Sebastiano del Piombo with Michelangelo,raisingLazarus.jpg
-4,The Ambassadors,Hans Holbein the Younger,holbein1.jpg
-4,Giovanni Agostino della Torre and his Son Niccolò,Lorenzo Lotto,lotto1.jpg
-4,Portrait of a Woman inspired by Lucretia,Lorenzo Lotto,lotto2.jpg
-4,Portrait of a Man,Moretto da Brescia,moretto1.jpg
-4,Portrait of Count Fortunato Martinengo,Moretto da Brescia,moretto2.jpg
-4,A Knight with his Jousting Helmet,Giovanni Battista Moroni,moroni1.jpg
-4,Portrait of a Lady ('La Dama in Rosso'),Giovanni Battista Moroni,moroni2.jpg
-4,Portrait of a Man holding a Letter ('L'Avvocato'),Giovanni Battista Moroni,moroni3.jpg
-4,The Tailor ('Il Tagliapanni'),Giovanni Battista Moroni,moroni4.jpg
-4,Portrait of a Poet,Palma Vecchio,palma1.jpg
-4,Portrait of a Collector,Parmigianino,parmigianino1.jpg
-4,Portrait of an Unknown Man aged 56,Frans Pourbus the Younger,pourbus1.jpg
-5,Christ as 'The Light of the World',Paris Bordone,bordone1.jpg
-5,Portrait of a Young Woman,Paris Bordone,bordone2.jpg
-5,Portrait of a Boy,Jacopino del Conte,conte1.jpg
-5,Lamentation over the Body of Christ,Dosso Dossi,dossi1.jpg
-5,The Adoration of the Kings,Dosso Dossi,dossi2.jpg
-5,A Pagan Sacrifice,Garofalo,garofalo1.jpg
-5,The Agony in the Garden,Garofalo,garofalo2.jpg
-5,Vision of Saint Augustine,Garofalo,garofalo3.jpg
-5,Portrait of Giovanni della Volta with his Wife and Children,Lorenzo Lotto,lotto3.jpg
-5,The Virgin and Child with Saints,Lorenzo Lotto,lotto4.jpg
-5,The Holy Family with Saints,Ludovico Mazzolino,mazzolino1.jpg
-5,Portrait of a Gentleman ('Il Gentile Cavaliere'),Giovanni Battista Moroni,moroni5.jpg
-5,The Conversion of Saul,Giacomo Panizzati,panizzati1.jpg
-5,Portrait of a Young Man holding a Letter,Rosso Fiorentino,rosso1.jpg
-6,The Madonna of the Cat ('La Madonna del Gatto'),Federico Barocci,barocci1.jpg
-6,The Virgin adoring the Child with Saint Joseph,Fra Bartolommeo,bartolommeo1.jpg
-6,Marcia,Domenico Beccafumi,beccafumi1.jpg
-6,Tanaquil,Domenico Beccafumi,beccafumi2.jpg
-6,The Story of Papirius,Domenico Beccafumi,beccafumi3.jpg
-6,Christ presented to the People (Ecce Homo),Correggio,correggio1.jpg
-6,Christ taking Leave of his Mother,Correggio,correggio2.jpg
-6,Saint Anne with the Virgin and Four Saints,Francesco Francia,francia1.jpg
-6,The Pietà,Francesco Francia,francia2.jpg
-6,Christ among the Doctors,Bernardino Luini,luini1.jpg
-6,The Road to Emmaus,Altobello Melone,melone1.jpg
-6,Lamentation of the Dead Christ,Giovanni Battista Naldini,naldini1.jpg
-6,Saint Sebastian with Saint Roch and Saint Demetrius,Ortolano,ortolano1.jpg
-6,The Madonna and Child with Saints,Parmigianino,parmigianino2.jpg
-6,The Mystic Marriage of Saint Catherine,Parmigianino,parmigianino3.jpg
-7,The Madonna of the Basket,Correggio,correggio3.jpg
-7,Joseph sold to Potiphar,Pontormo,pontormo1.jpg
-7,Joseph with Jacob in Egypt,Pontormo,pontormo2.jpg
-7,Joseph's Brothers beg for Help,Pontormo,pontormo3.jpg
-7,Pharaoh with his Butler and Baker,Pontormo,pontormo4.jpg
-7,The Dream of a Knight,Raphael,raphael2.jpg
-7,The Garvagh Madonna,Raphael,raphael3.jpg
+roomId;title;artist;thumbnail
+1;Scrub;George Stubbs;stubbs1.jpg
+
+2;An Allegory with Venus and Cupid;Bronzino;bronzino1.jpg
+2;Portrait of a Young Man;Bronzino;bronzino2.jpg
+2;The Madonna and Child with Saints;Bronzino;bronzino3.jpg
+2;The Entombment(or Christ being carried to his Tomb);Michelangelo;michelangelo1.jpg
+2;Pope Julius II;Raphael;raphael1.jpg
+2;Portrait of a Young Man;Andrea del Sarto;delSarto1.jpg
+2;The Madonna and Child with Saint Elizabeth and the Baptist;Andrea del Sarto;delSarto2.jpg
+2;Portrait of a Lady;Sebastiano del Piombo;delPiombo1.jpg
+2;The Madonna and Child with Saints and a Donor;Sebastiano del Piombo;delPiombo2.jpg
+2;The Raising of Lazarus;Sebastiano del Piombo with Michelangelo;raisingLazarus.jpg
+
+4;The Ambassadors;Hans Holbein the Younger;holbein1.jpg
+4;Giovanni Agostino della Torre and his Son Niccolò;Lorenzo Lotto;lotto1.jpg
+4;Portrait of a Woman inspired by Lucretia;Lorenzo Lotto;lotto2.jpg
+4;Portrait of a Man;Moretto da Brescia;moretto1.jpg
+4;Portrait of Count Fortunato Martinengo;Moretto da Brescia;moretto2.jpg
+4;A Knight with his Jousting Helmet;Giovanni Battista Moroni;moroni1.jpg
+4;Portrait of a Lady ('La Dama in Rosso');Giovanni Battista Moroni;moroni2.jpg
+4;Portrait of a Man holding a Letter ('L'Avvocato');Giovanni Battista Moroni;moroni3.jpg
+4;The Tailor ('Il Tagliapanni');Giovanni Battista Moroni;moroni4.jpg
+4;Portrait of a Poet;Palma Vecchio;palma1.jpg
+4;Portrait of a Collector;Parmigianino;parmigianino1.jpg
+4;Portrait of an Unknown Man aged 56;Frans Pourbus the Younger;pourbus1.jpg
+
+5;Christ as 'The Light of the World';Paris Bordone;bordone1.jpg
+5;Portrait of a Young Woman;Paris Bordone;bordone2.jpg
+5;Portrait of a Boy;Jacopino del Conte;conte1.jpg
+5;Lamentation over the Body of Christ;Dosso Dossi;dossi1.jpg
+5;The Adoration of the Kings;Dosso Dossi;dossi2.jpg
+5;A Pagan Sacrifice;Garofalo;garofalo1.jpg
+5;The Agony in the Garden;Garofalo;garofalo2.jpg
+5;Vision of Saint Augustine;Garofalo;garofalo3.jpg
+5;Portrait of Giovanni della Volta with his Wife and Children;Lorenzo Lotto;lotto3.jpg
+5;The Virgin and Child with Saints;Lorenzo Lotto;lotto4.jpg
+5;The Holy Family with Saints;Ludovico Mazzolino;mazzolino1.jpg
+5;Portrait of a Gentleman ('Il Gentile Cavaliere');Giovanni Battista Moroni;moroni5.jpg
+5;The Conversion of Saul;Giacomo Panizzati;panizzati1.jpg
+5;Portrait of a Young Man holding a Letter;Rosso Fiorentino;rosso1.jpg
+
+6;The Madonna of the Cat ('La Madonna del Gatto');Federico Barocci;barocci1.jpg
+6;The Virgin adoring the Child with Saint Joseph;Fra Bartolommeo;bartolommeo1.jpg
+6;Marcia;Domenico Beccafumi;beccafumi1.jpg
+6;Tanaquil;Domenico Beccafumi;beccafumi2.jpg
+6;The Story of Papirius;Domenico Beccafumi;beccafumi3.jpg
+6;Christ presented to the People (Ecce Homo);Correggio;correggio1.jpg
+6;Christ taking Leave of his Mother;Correggio;correggio2.jpg
+6;Saint Anne with the Virgin and Four Saints;Francesco Francia;francia1.jpg
+6;The Pietà;Francesco Francia;francia2.jpg
+6;Christ among the Doctors;Bernardino Luini;luini1.jpg
+6;The Road to Emmaus;Altobello Melone;melone1.jpg
+6;Lamentation of the Dead Christ;Giovanni Battista Naldini;naldini1.jpg
+6;Saint Sebastian with Saint Roch and Saint Demetrius;Ortolano;ortolano1.jpg
+6;The Madonna and Child with Saints;Parmigianino;parmigianino2.jpg
+6;The Mystic Marriage of Saint Catherine;Parmigianino;parmigianino3.jpg
+
+7;The Madonna of the Basket;Correggio;correggio3.jpg
+7;Joseph sold to Potiphar;Pontormo;pontormo1.jpg
+7;Joseph with Jacob in Egypt;Pontormo;pontormo2.jpg
+7;Joseph's Brothers beg for Help;Pontormo;pontormo3.jpg
+7;Pharaoh with his Butler and Baker;Pontormo;pontormo4.jpg
+7;The Dream of a Knight;Raphael;raphael2.jpg
+7;The Garvagh Madonna;Raphael;raphael3.jpg
+
+8;Portrait of Vincenzo Morosini;Jacopo Tintoretto;tintoretto1.jpg
+8;An Allegory of Prudence;Titian;titian1.jpg
+8;Noli me Tangere;Titian;titian2.jpg
+8;Portrait of a Lady ('La Schiavona');Titian;titian3.jpg
+8;Portrait of a Young Man;Titian;titian4.jpg
+8;The Aldobrandini Madonna;Titian;titian5.jpg
+8;The Holy Family with a Shepherd;Titian;titian6.jpg
+8;The Rest on the Flight into Egypt;Titian;titian7.jpg
+8;The Tribute Money;Titian;titian8.jpg
+8;The Virgin suckling the Infant Christ;Titian;titian9.jpg
+
+9;The Good Samaritan;Jacopo Bassano;basssano1.jpg
+9;The Way to Calvary;Jacopo Bassano;basssano2.jpg
+9;A Pair of Lovers;Paris Bordone;bordone1.jpg
+9;Christ driving the Traders from the Temple;El Greco;greco1.jpg
+9;Mary Magdalene;Giovanni Girolamo Savoldo;savoldo1.jpg
+9;Saint Jerome;Giovanni Girolamo Savoldo;savoldo2.jpg
+9;Christ washing the Feet of the Disciples;Jacopo Tintoretto;tintoretto1.jpg
+9;Saint George and the Dragon;Jacopo Tintoretto;tintoretto2.jpg
+9;The Origin of the Milky Way;Jacopo Tintoretto;tintoretto3.jpg
+9;Happy Union;Paolo Veronese;veronese1.jpg
+9;Respect;Paolo Veronese;veronese2.jpg
+9;Scorn;Paolo Veronese;veronese3.jpg
+9;The Adoration of the Kings;Paolo Veronese;veronese4.jpg
+9;The Consecration of Saint Nicholas;Paolo Veronese;veronese5.jpg
+9;The Dream of Saint Helena;Paolo Veronese;veronese6.jpg
+9;The Family of Darius before Alexander;Paolo Veronese;veronese7.jpg
+9;Unfaithfulness;Paolo Veronese;veronese8.jpg
+
+10;Christ carrying the Cross;Ambrogio Bergognone;bergognone1.jpg
+10;The Agony in the Garden;Ambrogio Bergognone;bergognone2.jpg
+10;The Virgin and Child with Saints;Ambrogio Bergognone;bergognone3.jpg
+10;La Madonna della Rondine (The Madonna of the Swallow);Carlo Crivelli;crivelli1.jpg
+10;Predella of La Madonna della Rondine;Carlo Crivelli;crivelli2.jpg
+10;Saint Andrew;Carlo Crivelli;crivelli3.jpg
+10;Saint Catherine of Alexandria;Carlo Crivelli;crivelli4.jpg
+10;Saint Catherine of Alexandria;Carlo Crivelli;crivelli5.jpg
+10;Saint Dominic;Carlo Crivelli;crivelli6.jpg
+10;Saint Francis;Carlo Crivelli;crivelli7.jpg
+10;Saint John the Baptist;Carlo Crivelli;crivelli8.jpg
+10;Saint Lucy;Carlo Crivelli;crivelli9.jpg
+10;Saint Mary Magdalena;Carlo Crivelli;crivelli10.jpg
+10;Saint Michael;Carlo Crivelli;crivelli11.jpg
+10;Saint Peter;Carlo Crivelli;crivelli12.jpg
+10;Saint Stephen;Carlo Crivelli;crivelli13.jpg
+10;Saint Thomas Aquinas;Carlo Crivelli;crivelli14.jpg
+10;The Virgin and Child;Carlo Crivelli;crivelli15.jpg
+10;The Virgin and Child with Saints Francis and Sebastian;Carlo Crivelli;crivelli16.jpg
+10;Man on a Ladder;Luca Signorelli;signorelli1.jpg
+10;The Adoration of the Shepherds;Luca Signorelli;signorelli2.jpg
+10;The Circumcision;Luca Signorelli;signorelli3.jpg
+
+11;Christina of Denmark, Duchess of Milan;Hans Holbein the Younger;holbein1.jpg
+11;Portrait of Hermine Gallia;Gustav Klimt;klimt1.jpg
+11;Portrait of Charlotte Cuhrt;Max Pechstein;pechstein1.jpg
+11;The Honourable Victoria Stanley;John Singer Sargent;sargent1.jpg
+
+12;The Triumphs of Caesar: 1 The Trumpeters;Andrea Mantegna;mantegna1.jpg
+12;The Triumphs of Caesar: 2 The Triumphal Carts;Andrea Mantegna;mantegna2.jpg
+12;The Triumphs of Caesar: 3 The Trophy Bearers;Andrea Mantegna;mantegna3.jpg
+12;The Triumphs of Caesar: 4 The Vase-Bearers;Andrea Mantegna;mantegna4.jpg
+12;The Triumphs of Caesar: 5 The Elephants;Andrea Mantegna;mantegna5.jpg
+12;The Triumphs of Caesar: 6 The Corselet-Bearers;Andrea Mantegna;mantegna6.jpg
+12;A Roman Triumph;Peter Paul Rubens;rubens1.jpg
+
+14;The Virgin and Child;Ambrogio Bergognone;bergognone1.jpg
+14;A Concert;Lorenzo Costa;costa1.jpg
+14;Portrait (supposed to be of Battista Fiera);Lorenzo Costa;costa2.jpg
+14;A Man embracing a Woman;Dosso Dossi;dossi1.jpg
+14;Bartolomeo Bianchini;Francesco Francia;francia1.jpg
+14;Music;Justus of Ghent and workshop;ghent1.jpg
+14;Rhetoric;Justus of Ghent and workshop;ghent2.jpg
+14;A Woman Drinking;Andrea Mantegna;mantegna1.jpg
+14;Samson and Delilah;Andrea Mantegna;mantegna2.jpg
+14;The Holy Family with Saint John the Baptist;Andrea Mantegna;mantegna3.jpg
+14;The Introduction of the Cult of Cybele at Rome;Andrea Mantegna;mantegna4.jpg
+14;The Vestal Virgin Tuccia with a Sieve;Andrea Mantegna;mantegna5.jpg
+14;The Virgin and Child with Saints;Andrea Mantegna;mantegna6.jpg
+14;Portrait of a Man aged 20 ('The Archinto Portrait');Marco d'Oggiono;d'oggino1.jpg
+14;The Institution of the Eucharist;Ercole de'Roberti;roberti1.jpg
+14;The Israelites gathering Manna;Ercole de'Roberti;roberti2.jpg
+14;A Muse (Calliope);Cosimo Tura;tura1.jpg
+14;The Virgin Annunciate;Cosimo Tura;tura2.jpg
+
+15;Self Portrait at the Age of 34;Rembrandt;rembrandt1.jpg
+15;Portrait of Susanna Lunden ('Le Chapeau de Paille');Peter Paul Rubens;rubens1.jpg
+15;Portrait of Gerolamo Barbarigo;Titian;titian1.jpg
+15;Self Portrait in a Straw Hat;Elisabeth Louise Vigée Le Brun;lebrun1.jpg
+
+15a;Portrait of a Man;Gonzales Coques;coques1.jpg
+15a;Portrait of a Woman as Saint Agnes;Gonzales Coques;coques2.jpg
+15a;A Poulterer's Shop;Gerrit Dou;dou1.jpg
+15a;Portrait of a Man;Gerrit Dou;dou2.jpg
+15a;Portrait of a Young Woman;Gerrit Dou;dou3.jpg
+15a;A Woman in a Red Jacket feeding a Parrot;Frans van Mieris the Elder;franselder1.jpg
+15a;Portrait of the Artist's Wife, Cunera van der Cock;Frans van Mieris the Elder;franselder2.jpg
+15a;Self Portrait of the Artist, with a Cittern;Frans van Mieris the Elder;franselder3.jpg
+15a;A Woman and a Fish-pedlar in a Kitchen;Willem van Mieris;mieris1.jpg
+15a;Two Boys blowing Bubbles;Caspar Netscher;netscher1.jpg
+15a;A Man Offering Gold and Coins to a Girl;Godfried Schalcken;schalcken1.jpg
+15a;Allegory of Virtue and Riches;Godfried Schalcken;schalcken2.jpg
+15a;An Old Woman scouring a Pot;Godfried Schalcken;schalcken3.jpg
+15a;A Boy with a Mousetrap;Adriaen van der Werff;werff1.jpg
+
+16;The Market Place and the Grote Kerk at Haarlem;Gerrit Berckheyde;berckheyde1.jpg
+16;A Farm among Trees;Jan van der Heyden;heyden1.jpg
+16;The Huis ten Bosch at The Hague;Jan van der Heyden;heyden2.jpg
+16;View of the Westerkerk, Amsterdam;Jan van der Heyden;heyden3.jpg
+16;A Woman and her Maid in a Courtyard;Pieter de Hooch;hooch1.jpg
+16;The Courtyard of a House in Delft;Pieter de Hooch;hooch2.jpg
+16;A Man and a Woman seated by a Virginal;Gabriel Metsu;metsu1.jpg
+16;A Panoramic View of Amsterdam looking towards the IJ;Jacob van Ruisdael;ruisdael1.jpg
+16;The Interior of the Buurkerk at Utrecht;Pieter Saenredam;saenredam1.jpg
+16;The Interior of the Grote Kerk at Haarlem;Pieter Saenredam;saenredam2.jpg
+16;A Young Woman playing a Harpsichord to a Young Man;Jan Steen;steen1.jpg
+16;Skittle Players outside an Inn;Jan Steen;steen2.jpg
+16;Golfers on the Ice near Haarlem;Adriaen van de Velde;velde1.jpg
+16;A Young Woman seated at a Virginal;Johannes Vermeer;vermeer1.jpg
+16;A Young Woman standing at a Virginal;Johannes Vermeer;vermeer2.jpg
+16;A Landscape with a River by a Wood;Cornelis Vroom;vroom1.jpg
+16;Adriana van Heusden and Daughter at the Fishmarket;Emanuel de Witte;dewitte1.jpg
+16;The Interior of the Oude Kerk, Amsterdam;Emanuel de Witte;dewitte2.jpg
+
+17;A Woman playing a Lute to Two Men;Gerard ter Borch;borch1.jpg
+17;An Officer dictating a Letter;Gerard ter Borch;borch2.jpg
+17;A Musical Party in a Courtyard;Pieter de Hooch;hooch1.jpg
+17;An Interior, with a Woman refusing a Glass of Wine;Possibly by Ludolf de Jongh;dejongh1.jpg
+17;Portrait of Constantijn Huygens and his Clerk;Thomas de Keyser;keyser1.jpg
+17;The Idle Servant;Nicolaes Maes;maes1.jpg
+17;Two Men with a Sleeping Woman;Gabriel Metsu;metsu1.jpg
+17;A Lady teaching a Child to Read;Caspar Netscher;netscher1.jpg
+17;The Effects of Intemperance;Jan Steen;steen1.jpg
+
+17a;A View of Delft;Carel Fabritius;fabritius1.jpg
+17a;Young Man in a Fur Cap;Carel Fabritius;fabritius2.jpg
+17a;A Woman Drinking with Two Men;Pieter de Hooch;dehooch1.jpg
+17a;A Peepshow with Views of the Interior of a Dutch House;Samuel van Hoogstraten;hoogstraten1.jpg
+17a;Interior of a Church;Gerard Houckgeest;houckgeest1.jpg
+17a;A View of Delft after the Explosion of 1654;Egbert van der Poel;poel1.jpg
+
+18;Drunken Silenus supported by Satyrs;Possibly by Anthony van Dyck;dyck1.jpg
+18;The Holy Family and Saint John the Baptist;Jacob Jordaens;jordaens1.jpg
+18;The Virgin and Child with Saint John and his Parents;Jacob Jordaens;jordaens2.jpg
+18;A Lion Hunt;Peter Paul Rubens;rubens1.jpg
+18;Aurora abducting Cephalus;Peter Paul Rubens;rubens2.jpg
+18;Kings Clothar and Dagobert dispute with a Herald;Peter Paul Rubens;rubens3.jpg
+18;Portrait of Ludovicus Nonnius;Peter Paul Rubens;rubens4.jpg
+18;Portrait of Thomas Howard, 2nd Earl of Arundel;Peter Paul Rubens;rubens5.jpg
+18;Saint Bavo is received by Saints Amand and Floribert;Peter Paul Rubens;rubens6.jpg
+18;Samson and Delilah;Peter Paul Rubens;rubens7.jpg
+18;The Apotheosis of the Duke of Buckingham;Peter Paul Rubens;rubens8.jpg
+18;The Birth of Venus;Peter Paul Rubens;rubens8.jpg
+18;The Brazen Serpent;Peter Paul Rubens;rubens9.jpg
+18;The Judgement of Paris;Peter Paul Rubens;rubens10.jpg
+18;The Judgement of Paris2;Peter Paul Rubens;rubens11.jpg
+18;The Miraculous Draught of Fishes;Peter Paul Rubens;rubens12.jpg
+18;The Rape of the Sabine Women;Peter Paul Rubens;rubens13.jpg
+18;Three Female Witnesses;Peter Paul Rubens;rubens14.jpg
+
+19;A Scene on the Ice near a Town;Hendrick Avercamp;avercamp1.jpg
+19;A Winter Scene with Skaters near a Castle;Hendrick Avercamp;avercamp2.jpg
+19;A River Scene with a Large Ferry;Jan van de Cappelle;cappelle1.jpg
+19;A Shipping Scene with a Dutch Yacht firing a Salute;Jan van de Cappelle;cappelle2.jpg
+19;A Herdsman with Five Cows by a River;Aelbert Cuyp;cuyp1.jpg
+19;A Landscape with Horseman, Herders and Cattle;Aelbert Cuyp;cuyp2.jpg
+19;River Landscape with Horseman and Peasants;Aelbert Cuyp;cuyp3.jpg
+19;The Large Dort;Aelbert Cuyp;cuyp4.jpg
+19;The Maas at Dordrecht in a Storm;Aelbert Cuyp;cuyp5.jpg
+19;The Small Dort;Aelbert Cuyp;cuyp6.jpg
+19;Ubbergen Castle;Aelbert Cuyp;cuyp7.jpg
+19;The Avenue at Middelharnis;Meindert Hobbema;hobbema1.jpg
+19;An Extensive Landscape with a Road by a River;Philips Koninck;koninck1.jpg
+19;Landscape with Cattle and a Woman by a Stream;Paulus Potter;potter1.jpg
+19;A Pool surrounded by Trees;Jacob van Ruisdael;ruisdael1.jpg
+19;A View of Deventer seen from the North-West;Salomon van Ruysdael;ruysdael1.jpg
+19;Dutch Boats in a Gale ('The Bridgewater Sea Piece');Joseph Mallord William Turner;turner1.jpg
+19;A Farm with a Dead Tree;Adriaen van de Velde;adrvelde1.jpg
+19;A Dutch Ship, a Yacht and Smaller Vessels in a Breeze;Willem van de Velde;willvelde1.jpg
+19;A Small Dutch Vessel close-hauled in a Strong Breeze;Willem van de Velde;willvelde2.jpg
+19;Three Ships in a Gale;Willem van de Velde;willvelde3.jpg
+
+20;Tavern Scene;Adriaen Brouwer;brouwer1.jpg
+20;Portrait of a Man;Flemish;flemish1.jpg
+20;Portrait of Lucas Fayd'herbe;possibly by Pieter Franchoijs;franchoijs1.jpg
+20;Portrait of a Lady in Black Satin with a Fan;Bartholomeus van der Helst;helst1.jpg
+20;Portrait of a Lady;Cornelius Johnson;johnson1.jpg
+20;Portrait of Cornelis van Diest and his Wife;Jacob Jordaens;jordaens1.jpg
+20;Self Portrait;Jan Lievens;lievens1.jpg
+20;Portrait of a Girl;Isaack Luttichuys;luttichuys1.jpg
+20;Portrait of a Boy aged 11;Jacob van Oost the Elder;elder1.jpg
+20;A Landscape with a Shepherd and his Flock;Peter Paul Rubens;rubens1.jpg
+20;A Shepherd with his Flock in a Woody Landscape;Peter Paul Rubens;rubens2.jpg
+20;A View of Het Steen in the Early Morning;Peter Paul Rubens;rubens3.jpg
+20;A Wagon fording a Stream;Peter Paul Rubens;rubens4.jpg
+20;The Watering Place;Peter Paul Rubens;rubens5.jpg
+20;Christ Crowned with Thorns;David Teniers the Younger;teniersyounger1.jpg
+20;Peasants playing Bowls outside a Village Inn;David Teniers the Younger;teniersyounger2.jpg
+
+21;Charity;Anthony van Dyck;dyck1.jpg
+21;Lady Elizabeth Thimbelby and her Sister;Anthony van Dyck;dyck2.jpg
+21;Lord John Stuart and his Brother, Lord Bernard Stuart;Anthony van Dyck;dyck3.jpg
+21;Portrait of a Woman and Child;Anthony van Dyck;dyck4.jpg
+21;Portrait of Cornelis van der Geest;Anthony van Dyck;dyck5.jpg
+21;Portrait of François Langlois;Anthony van Dyck;dyck6.jpg
+21;Portrait of G.B. Cattaneo Della Volta;Anthony van Dyck;dyck7.jpg
+21;Portrait of George Gage with Two Attendants;Anthony van Dyck;dyck8.jpg
+21;Portrait of the Abbot Scaglia;Anthony van Dyck;dyck9.jpg
+21;Rinaldo and Armida;Anthony van Dyck;dyck10.jpg
+21;St Ambrose barring Theodosius from Milan Cathedral;Anthony van Dyck;dyck11.jpg
+21;The Abbot Scaglia adoring the Virgin and Child;Anthony van Dyck;dyck12.jpg
+21;Prince Charles Loui - Count Palatine;Studio of Anthony van Dyck;dyck13.jpg
+21;Prince Rupert - Count Palatine;Studio of Anthony van Dyck;dyck14.jpg
+
+22;A Bearded Man in a Cap;Rembrandt;rembrandt1.jpg
+22;A Franciscan Friar;Rembrandt;rembrandt2.jpg
+22;A Woman bathing in a Stream (Hendrickje Stoffels);Rembrandt;rembrandt3.jpg
+22;An Elderly Man as Saint Paul;Rembrandt;rembrandt4.jpg
+22;Anna and the Blind Tobit;Rembrandt;rembrandt5.jpg
+22;Belshazzar's Feast;Rembrandt;rembrandt6.jpg
+22;Ecce Homo;Rembrandt;rembrandt7.jpg
+22;Portrait of Aechje Claaesdr;Rembrandt;rembrandt8.jpg
+22;Portrait of Hendrickje Stoffels;Rembrandt;rembrandt9.jpg
+22;Portrait of Jacob Trip;Rembrandt;rembrandt10.jpg
+22;Portrait of Margaretha de Geer, Wife of Jacob Trip;Rembrandt;rembrandt11.jpg
+22;Portrait of Philips Lucasz;Rembrandt;rembrandt12.jpg
+22;Saskia van Uylenburgh in Arcadian Costume;Rembrandt;rembrandt13.jpg
+22;Self Portrait at the Age of 63;Rembrandt;rembrandt14.jpg
+22;The Lamentation over the Dead Christ;Rembrandt;rembrandt15.jpg
+22;The Woman taken in Adultery;Rembrandt;rembrandt16.jpg
+22;An Old Man in an Armchair;by Rembrandt;rembrandt17.jpg
+22;Portrait of Margaretha de Geer, Wife of Jacob Trip;by Rembrandt;rembrandt18.jpg
+22;A Man seated reading at a Table in a Lofty Room;Follower of Rembrandt;rembrandt19.jpg
+
+23;Flowers in a White Stone Vase;Dirck de Bray;bray1.jpg
+23;A Banquet Still Life;Floris van Dijck;dijck1.jpg
+23;Still Life with Cheese, Fruit, Bread and Nuts;Floris van Dijck;dijck2.jpg
+
+24;Lot and his Daughters;Abraham Bloemaert;bloemaert_lot_daughters.jpg
+24;An Astronomer;Ferdinand Bol;bol_astronomer.jpg
+24;A Man playing a Lute;Hendrick ter Brugghen;terbrugghen_lute.jpg
+24;Jacob reproaching Laban;Hendrick ter Brugghen;terbrugghen_jacob_laban.jpg
+24;The Concert;Hendrick ter Brugghen;terbrugghen_concert.jpg
+24;The Preaching of Saint John the Baptist;Cornelis van Haarlem;haarlem_preaching_baptist.jpg
+24;Two Followers of Cadmus devoured by a Dragon;Cornelis van Haarlem;haarlem_cadmus_dragon.jpg
+24;Saint Sebastian;Gerrit van Honthorst;honthorst_saint_sebastian.jpg
+24;Juno discovering Jupiter with Io;Pieter Lastman;lastman_juno_jupiter_io.jpg
+24;The Rest on the Flight into Egypt;Pieter Lastman;lastman_rest_egypt.jpg
+24;The Adoration of the Kings;Bartholomaeus Spranger;spranger_adoration_kings.jpg
+24;The Judgement of Paris;Joachim Wtewael;wtewael_judgement_paris.jpg
+24;The Raising of Lazarus;Joachim Wtewael;wtewael_raising_lazarus.jpg
+
+25;Still Life with Strawberries, Gooseberries and Asparagus;Adriaen Coorte;coorte_strawberries_gooseberries_asparagus.jpg
+25;Still Life with Apples and a Pomegranate;Gustave Courbet;courbet_apples_pomegranate.jpg
+25;Still Life with Drinking-Horn;Willem Kalf;kalf_drinking_horn.jpg
+25;Still Life with Lemons and Oranges;Luis Meléndez;melendez_lemons_oranges.jpg
+25;Still Life with Oranges and Walnuts;Luis Meléndez;melendez_oranges_walnuts.jpg
+25;Still Life;Claude Monet;monet_still_life.jpg
+25;Still Life with Oysters;Philippe Rousseau;rousseau_oysters.jpg
+25;Still Life with a Pewter Flagon and Two Ming Bowls;Jan Jansz. Treck;treck_pewter_flagon_ming_bowls.jpg
+25;Vanitas Still Life;Jan Jansz. Treck;treck_vanitas_still_life.jpg
+
+26;The Amazement of the Gods;Hans von Aachen;aachen_amazement_gods.jpg
+26;Christ carried to the Tomb;Sisto Badalocchio;badalocchio_christ_tomb.jpg
+26;Christ appearing to Saint Anthony Abbot;Annibale Carracci;carracci_christ_saint_anthony.jpg
+26;Christ appearing to Saint Peter on the Appian Way;Annibale Carracci;carracci_christ_saint_peter.jpg
+26;The Dead Christ Mourned ('The Three Maries');Annibale Carracci;carracci_dead_christ_mourned.jpg
+26;The Holy Family with the Infant Saint John the Baptist;Annibale Carracci;carracci_holy_family.jpg
+26;The Marriage of the Virgin;Ludovico Carracci;ludovico_carracci_marriage_virgin.jpg
+26;The Vision of Saint Jerome;Domenichino;domenichino_vision_jerome.jpg
+26;The Baptism of Christ;Adam Elsheimer;elsheimer_baptism_christ.jpg
+26;The Dead Christ mourned by Two Angels;Guercino;guercino_dead_christ_two_angels.jpg
+26;The Presentation of Jesus in the Temple;Guercino;guercino_presentation_temple.jpg
+26;The Coronation of the Virgin;Guido Reni;reni_coronation_virgin.jpg
+26;The Coronation of the Virgin;Johann Rottenhammer;rottenhammer_coronation_virgin.jpg
+26;Moses defending the Daughters of Jethro;Carlo Saraceni;saraceni_moses_jethro.jpg
+26;The Holy Family;Bartolomeo Schedoni;schedoni_holy_family.jpg
+
+27;Pan pursuing Syrinx;Hendrick van Balen the Elder and Follower of Jan Brueghel the Elder;vanbalen_pan_syrinx.jpg
+27;A Man and a Youth ploughing with Oxen;Nicolaes Berchem;berchem_ploughing_oxen.jpg
+27;A View on the Tiber;Jan Both;both_view_tiber.jpg
+27;The Finding of the Infant Moses by Pharaoh's Daughter;Bartholomeus Breenbergh;breenbergh_infant_moses.jpg
+27;Diana and Callisto;Paul Bril;bril_diana_callisto.jpg
+27;Landscape with Travellers and Peasants on a Track;Jan Brueghel the Elder;brueghel_landscape_travellers.jpg
+27;The Adoration of the Kings;Jan Brueghel the Elder;brueghel_adoration_kings.jpg
+27;Landscape with Tobias laying hold of the Fish;Domenichino;domenichino_tobias_fish.jpg
+27;Saint George killing the Dragon;Domenichino;domenichino_saint_george_dragon.jpg
+27;A Woman and a Boy with Animals at a Ford;Karel Dujardin;dujardin_woman_boy_animals.jpg
+27;Saint Lawrence prepared for Martyrdom;Adam Elsheimer;elsheimer_saint_lawrence.jpg
+27;Saint Paul on Malta;Adam Elsheimer;elsheimer_saint_paul_malta.jpg
+27;Tobias and the Archangel Raphael;After Adam Elsheimer;after_elsheimer_tobias_raphael.jpg
+27;Cognoscenti in a Room hung with Pictures;Flemish;flemish_cognoscenti_room.jpg
+27;The Rest on the Flight into Egypt;Pier Francesco Mola;mola_rest_egypt.jpg
+27;Women bathing in a Landscape;Cornelis van Poelenburgh;poelenburgh_women_bathing.jpg
+27;Orpheus;Roelandt Savery;savery_orpheus.jpg
+27;Feeding the Hungry;Michael Sweerts;sweerts_feeding_hungry.jpg
+27;Refreshing the Thirsty;Michael Sweerts;sweerts_refreshing_thirsty.jpg
+27;The Schoolroom;Michael Sweerts;sweerts_schoolroom.jpg
+
+28;Still Life with Partridges;Willem van Aelst;vanaelst_partridges.jpg
+28;Flowers in a Vase with Shells and Insects;Balthasar van der Ast;vanderast_flowers_shells_insects.jpg
+28;A Still Life of Flowers in a Wan-Li Vase;Ambrosius Bosschaert the Elder;bosschaert_wanli_vase.jpg
+28;Bouquet in a Clay Vase;Jan Brueghel the Elder;brueghel_bouquet_clay_vase.jpg
+28;Flowers in a Glass Bottle on a Marble Plinth;Jan Davidsz. de Heem;deheem_flowers_glass_bottle.jpg
+28;Glass Vase with Flowers, with a Poppy and a Finch Nest;Jan van Huysum;vanhuysum_glass_vase_flowers.jpg
+28;Insects with Common Hawthorn and Forget-Me-Not;Jan van Kessel the Elder;vankessel_hawthorn_forgetmenot.jpg
+28;Insects with Creeping Thistle and Borage;Jan van Kessel the Elder;vankessel_thistle_borage.jpg
+28;Flowers in a Glass Vase with a Tulip;Rachel Ruysch;ruysch_glass_vase_tulip.jpg
+28;Flowers in a Vase;Rachel Ruysch;ruysch_flowers_vase.jpg
+28;Still Life of Flowers in a Glass Vase on a Marble Ledge;Rachel Ruysch;ruysch_flowers_marble_ledge.jpg
+
+29;A Rocky Italian Landscape with Herdsmen and Muleteers;Jan Both;both_rocky_italian_landscape.jpg
+29;A Landscape with the Judgement of Paris;Jan Both and Cornelis van Poelenburgh;both_poelenburgh_judgement_paris.jpg
+29;Cardinal de Richelieu;Philippe de Champaigne;champaigne_cardinal_richelieu.jpg
+29;The Dream of Saint Joseph;Philippe de Champaigne;champaigne_dream_saint_joseph.jpg
+29;Triple Portrait of Cardinal de Richelieu;Philippe de Champaigne and studio;champaigne_triple_richelieu.jpg
+29;A Seaport;Claude;claude_seaport.jpg
+29;Landscape with a Goatherd and Goats;Claude;claude_goatherd_goats.jpg
+29;Landscape with Cephalus and Procris reunited by Diana;Claude;claude_cephalus_procris_diana.jpg
+29;Landscape with Hagar and the Angel;Claude;claude_hagar_angel.jpg
+29;Seaport with the Embarkation of Saint Ursula;Claude;claude_saint_ursula.jpg
+29;The Enchanted Castle;Claude;claude_enchanted_castle.jpg
+29;The Adoration of the Shepherds;The Le Nain Brothers;lenain_adoration_shepherds.jpg
+29;Three Men and a Boy;The Le Nain Brothers;lenain_three_men_boy.jpg
+29;Christ on the Cross with the Virgin and Saints;Eustache Le Sueur;lesueur_christ_cross.jpg
+29;A Bacchanalian Revel before a Term;Nicolas Poussin;poussin_bacchanalian_revel.jpg
+29;Cephalus and Aurora;Nicolas Poussin;poussin_cephalus_aurora.jpg
+29;Eucharist;Nicolas Poussin;poussin_eucharist.jpg
+29;Landscape with a Man killed by a Snake;Nicolas Poussin;poussin_man_killed_snake.jpg
+29;Landscape with a Man scooping Water from a Stream;Nicolas Poussin;poussin_man_scooping_water.jpg
+29;Landscape with Travellers Resting;Nicolas Poussin;poussin_travellers_resting.jpg
+29;Marriage;Nicolas Poussin;poussin_marriage.jpg
+29;Nymph with Satyrs;Nicolas Poussin;poussin_nymph_satyrs.jpg
+29;The Adoration of the Golden Calf;Nicolas Poussin;poussin_golden_calf.jpg
+29;The Adoration of the Shepherds;Nicolas Poussin;poussin_adoration_shepherds.jpg
+29;The Annunciation;Nicolas Poussin;poussin_annunciation.jpg
+29;The Nurture of Bacchus;Nicolas Poussin;poussin_nurture_bacchus.jpg
+29;The Triumph of Pan;Nicolas Poussin;poussin_triumph_pan.jpg
+29;The Triumph of Silenus;Nicolas Poussin;poussin_triumph_silenus.jpg
+
+30;The Immaculate Conception;Alonso Cano;cano_immaculate_conception.jpg
+30;Saint Bartholomew;Bernardo Cavallino;cavallino_saint_bartholomew.jpg
+30;Don Adrián Pulido Pareja;Possibly by Juan Bautista Martínez del Mazo;mazo_don_adrian_pulido_pareja.jpg
+30;A Peasant Boy leaning on a Sill;Bartolomé Esteban Murillo;murillo_peasant_boy.jpg
+30;A Young Man Drinking;Bartolomé Esteban Murillo;murillo_young_man_drinking.jpg
+30;Christ healing the Paralytic at the Pool of Bethesda;Bartolomé Esteban Murillo;murillo_christ_healing_paralytic.jpg
+30;Self Portrait;Bartolomé Esteban Murillo;murillo_self_portrait.jpg
+30;The Heavenly and Earthly Trinities;Bartolomé Esteban Murillo;murillo_trinities.jpg
+30;The Infant Saint John with the Lamb;Bartolomé Esteban Murillo;murillo_infant_saint_john.jpg
+30;Jacob with the Flock of Laban;Jusepe de Ribera;ribera_jacob_laban.jpg
+30;Saint Jerome;Jusepe de Ribera;ribera_saint_jerome.jpg
+30;The Lamentation over the Dead Christ;Jusepe de Ribera;ribera_lamentation_christ.jpg
+30;The Immaculate Conception with Two Donors;Juan de Valdes Leal;valdesleal_immaculate_conception.jpg
+30;The Sacrifice of Isaac;Juan de Valdes Leal;valdesleal_sacrifice_isaac.jpg
+30;Christ contemplated by the Christian Soul;Diego Velázquez;velazquez_christ_christian_soul.jpg
+30;Christ in the House of Martha and Mary;Diego Velázquez;velazquez_martha_mary.jpg
+30;Philip IV hunting Wild Boar (La Tela Real);Diego Velázquez;velazquez_tela_real.jpg
+30;Philip IV of Spain;Diego Velázquez;velazquez_philip_iv.jpg
+30;Philip IV of Spain in Brown and Silver;Diego Velázquez;velazquez_philip_iv_brown_silver.jpg
+30;Portrait of Archbishop Fernando de Valdés;Diego Velázquez;velazquez_archbishop_valdes.jpg
+30;Saint John the Evangelist on the Island of Patmos;Diego Velázquez;velazquez_saint_john_patmos.jpg
+30;The Immaculate Conception;Diego Velázquez;velazquez_immaculate_conception.jpg
+30;The Toilet of Venus ('The Rokeby Venus');Diego Velázquez;velazquez_rokeby_venus.jpg
+30;Saint Francis in Meditation;Francisco de Zurbarán;zurbaran_saint_francis.jpg
+
+31;Venus with Mercury and Cupid ('The School of Love');Correggio;correggio_school_of_love.jpg
+31;Cupid and Psyche;Anthony van Dyck;vandyck_cupid_psyche.jpg
+31;Equestrian Portrait of Charles I;Anthony van Dyck;vandyck_equestrian_charles_i.jpg
+31;Queen Henrietta Maria;Anthony van Dyck;vandyck_queen_henrietta_maria.jpg
+31;Joseph and Potiphar’s Wife;Orazio Gentileschi;gentileschi_joseph_potiphar.jpg
+31;The Finding of Moses;Orazio Gentileschi;gentileschi_finding_moses.jpg
+31;Minerva protects Pax from Mars ('Peace and War');Peter Paul Rubens;rubens_peace_and_war.jpg
+31;Esther before Ahasuerus;Jacopo Tintoretto;tintoretto_esther_ahasuerus.jpg
+
+32;The Angel appears to Hagar and Ishmael;Gioacchino Assereto;assereto_hagar_ishmael.jpg
+32;An Old Man holding a Pilgrim-Bottle;Pietro Bellotti;bellotti_old_man_pilgrim_bottle.jpg
+32;Boy bitten by a Lizard;Michelangelo Merisi da Caravaggio;caravaggio_boy_lizard.jpg
+32;Salome receives the Head of John the Baptist;Michelangelo Merisi da Caravaggio;caravaggio_salome_baptist.jpg
+32;The Supper at Emmaus;Michelangelo Merisi da Caravaggio;caravaggio_supper_emmaus.jpg
+32;Susannah and the Elders;Ludovico Carracci;ludovico_carracci_susannah_elders.jpg
+32;Christ driving the Traders from the Temple;Bernardo Cavallino;cavallino_christ_traders_temple.jpg
+32;Saint Cecilia;Pietro da Cortona;cortona_saint_cecilia.jpg
+32;The Adoration of the Kings;Carlo Dolci;dolci_adoration_kings.jpg
+32;Saint John the Evangelist;Domenichino;domenichino_saint_john.jpg
+32;Self Portrait as Saint Catherine of Alexandria;Artemisia Gentileschi;artemisia_self_portrait_catherine.jpg
+32;The Rest on the Flight into Egypt;Orazio Gentileschi;gentileschi_rest_egypt.jpg
+32;Perseus turning Phineus and his Followers to Stone;Luca Giordano;giordano_perseus_phineus.jpg
+32;Elijah fed by Ravens;Guercino;guercino_elijah_ravens.jpg
+32;King David;Guercino;guercino_king_david.jpg
+32;Saint Gregory the Great with Jesuit Saints;Guercino;guercino_saint_gregory.jpg
+32;The Cumaean Sibyl with a Putto;Guercino;guercino_cumaean_sibyl.jpg
+32;The Incredulity of Saint Thomas;Guercino;guercino_saint_thomas.jpg
+32;The Samian Sibyl with a Putto;Guercino;guercino_samian_sibyl.jpg
+32;Christ before the High Priest;Gerrit van Honthorst;honthorst_christ_high_priest.jpg
+32;Judith in the Tent of Holofernes;Johann Liss;liss_judith_holofernes.jpg
+32;Lot and his Daughters leaving Sodom;Guido Reni;reni_lot_daughters_sodom.jpg
+32;Saint Mary Magdalene;Guido Reni;reni_mary_magdalene.jpg
+32;Susannah and the Elders;Guido Reni;reni_susannah_elders.jpg
+32;The Adoration of the Shepherds;Guido Reni;reni_adoration_shepherds.jpg
+32;The Rape of Europa;Guido Reni;reni_rape_europa.jpg
+32;Landscape with Mercury and the Dishonest Woodsman;Salvator Rosa;rosa_mercury_woodsman.jpg
+32;Landscape with Travellers asking the Way;Salvator Rosa;rosa_travellers_asking_way.jpg
+32;Philosophy;Salvator Rosa;rosa_philosophy.jpg
+32;Self Portrait as Pascariello;Salvator Rosa;rosa_pascariello.jpg
+32;Witches at their Incantations;Salvator Rosa;rosa_witches_incantations.jpg
+32;The Virgin and Child Embracing;Sassoferrato;sassoferrato_virgin_child_embracing.jpg
+32;The Virgin in Prayer;Sassoferrato;sassoferrato_virgin_prayer.jpg
+32;Dido receiving Aeneas and Cupid disguised as Ascanius;Francesco Solimena;solimena_dido_aeneas_cupid.jpg
+32;A Personification of Fame;Bernardo Strozzi;strozzi_personification_fame.jpg
+
+33;A Regatta on the Grand Canal;Canaletto;canaletto_regatta_grand_canal.jpg
+33;The Stonemason's Yard;Canaletto;canaletto_stonemasons_yard.jpg
+33;Venice: Piazza San Marco;Canaletto;canaletto_piazza_san_marco.jpg
+33;Venice: The Basin of San Marco on Ascension Day;Canaletto;canaletto_basin_san_marco_ascension.jpg
+33;Venice: The Doge's Palace and the Riva degli Schiavoni;Canaletto;canaletto_doges_palace_riva.jpg
+33;Venice: The Feast Day of Saint Roch;Canaletto;canaletto_feast_saint_roch.jpg
+33;Venice: The Grand Canal with S. Simeone Piccolo;Canaletto;canaletto_grand_canal_simeone.jpg
+33;An Architectural Caprice;Francesco Guardi;guardi_architectural_caprice.jpg
+33;Exhibition of a Rhinoceros at Venice;Pietro Longhi;longhi_rhinoceros_venice.jpg
+33;The Banquet of Cleopatra;Giovanni Battista Tiepolo;tiepolo_banquet_cleopatra.jpg
+
+34;William Feilding, 1st Earl of Denbigh;Anthony van Dyck;vandyck_william_feilding.jpg
+34;Cornard Wood, near Sudbury, Suffolk;Thomas Gainsborough;gainsborough_cornard_wood.jpg
+34;Mr and Mrs William Hallett ('The Morning Walk');Thomas Gainsborough;gainsborough_morning_walk.jpg
+34;Mrs Siddons;Thomas Gainsborough;gainsborough_mrs_siddons.jpg
+34;The Market Cart;Thomas Gainsborough;gainsborough_market_cart.jpg
+34;The Painter's Daughters chasing a Butterfly;Thomas Gainsborough;gainsborough_daughters_butterfly.jpg
+34;Marriage A-la-Mode: 1, The Marriage Settlement;William Hogarth;hogarth_marriage_settlement.jpg
+34;The Painter and his Pug;William Hogarth;hogarth_painter_pug.jpg
+34;Whistlejacket;George Stubbs;stubbs_whistlejacket.jpg
+34;Calais Pier;Joseph Mallord William Turner;turner_calais_pier.jpg
+
+35;Landscape with a Watermill;François Boucher;boucher_watermill.jpg
+35;Pan and Syrinx;François Boucher;boucher_pan_syrinx.jpg
+35;The House of Cards;Jean-Siméon Chardin;chardin_house_cards.jpg
+35;The Water Cistern ('La Fontaine');Jean-Siméon Chardin;chardin_water_cistern.jpg
+35;The Young Schoolmistress;Jean-Siméon Chardin;chardin_young_schoolmistress.jpg
+35;Portrait of Jacobus Blauw;Jacques-Louis David;david_jacobus_blauw.jpg
+35;The Comte de Vaudreuil;François-Hubert Drouais;drouais_comte_vaudreuil.jpg
+35;Psyche showing her Sisters her Gifts from Cupid;Jean-Honoré Fragonard;fragonard_psyche_sisters.jpg
+35;A Lady in a Garden having Coffee with Children;Nicolas Lancret;lancret_lady_garden_coffee.jpg
+35;The Scale of Love;Jean-Antoine Watteau;watteau_scale_love.jpg
+
+36;Seaport with the Embarkation of the Queen of Sheba;Claude;claude_queen_sheba.jpg
+36;The Mill;Claude;claude_mill.jpg
+36;Dido building Carthage;Joseph Mallord William Turner;turner_dido_carthage.jpg
+36;Sun Rising through Vapour;Joseph Mallord William Turner;turner_sun_rising_vapour.jpg
+
+37;Portrait of Richard Milles;Pompeo Girolamo Batoni;batoni_richard_milles.jpg
+37;The Fortress of Königstein from the North;Bernardo Bellotto;bellotto_konigstein_north.jpg
+37;A Girl at a Window;Louis-Léopold Boilly;boilly_girl_window.jpg
+37;Eton College;Canaletto;canaletto_eton_college.jpg
+37;London: Interior of the Rotunda at Ranelagh;Canaletto;canaletto_ranelagh_rotunda.jpg
+37;The Baron de Besenval in his Salon;Henri-Pierre Danloux;danloux_besenval_salon.jpg
+37;A Picnic;Francisco de Goya;goya_picnic.jpg
+37;A Scene from 'The Forcibly Bewitched';Francisco de Goya;goya_forcibly_bewitched.jpg
+37;Roman Ruins with Figures;Giovanni Paolo Panini;panini_roman_ruins.jpg
+37;The Lottery in Piazza di Montecitorio;Giovanni Paolo Panini;panini_lottery_montecitorio.jpg
+
+38;After the Audience;Lawrence Alma-Tadema;almatadema_after_audience.jpg
+38;A View of the Sky from a Prison Window;Carl Gustav Carus;carus_prison_window.jpg
+38;Portrait of the Comtesse Vilain XIIII and her Daughter;Jacques-Louis David;david_comtesse_vilain.jpg
+38;Christ on the Cross;Eugène Delacroix;delacroix_christ_cross.jpg
+38;The Execution of Lady Jane Grey;Paul Delaroche;delaroche_lady_jane_grey.jpg
+38;A Horse frightened by Lightning;Jean-Louis-André-Théodore Géricault;gericault_horse_lightning.jpg
+38;Don Andrés del Peral;Francisco de Goya;goya_andres_peral.jpg
+38;The Duke of Wellington;Francisco de Goya;goya_duke_wellington.jpg
+38;Angelica saved by Ruggiero;Jean-Auguste-Dominique Ingres;ingres_angelica_ruggiero.jpg
+38;Madame Moitessier;Jean-Auguste-Dominique Ingres;ingres_madame_moitessier.jpg
+
+39;Ruined Column in the Baths of Caracalla, Rome;Possibly by Théodore Caruelle d'Aligny;aligny_ruined_column.jpg
+39;The Tempest;Peder Balke;balke_tempest.jpg
+39;Peasants by a Ruined Aqueduct;Nicolaes Berchem;berchem_ruined_aqueduct.jpg
+39;A View of Tivoli Cascade;Jean Joseph Xavier Bidauld;bidauld_tivoli_cascade.jpg
+39;The Capuchin Convent at Amalfi;Carl Blechen;blechen_capuchin_convent.jpg
+39;An Estuary in Northern France;Richard Parkes Bonington;bonington_estuary_france.jpg
+39;Weymouth Bay: Bowleaze Cove and Jordon Hill;John Constable;constable_weymouth_bay.jpg
+39;The Roman Campagna, with the Claudian Aqueduct;Jean-Baptiste-Camille Corot;corot_roman_campagna.jpg
+39;Winter Landscape;Caspar David Friedrich;friedrich_winter_landscape.jpg
+39;The Geltenbach Falls with an Ice Bridge;Caspar Wolf;wolf_geltenbach_falls.jpg
+
+40;Cenotaph to the Memory of Sir Joshua Reynolds;John Constable;constable_cenotaph_reynolds.jpg
+40;The Cornfield;John Constable;constable_cornfield.jpg
+40;The Hay Wain;John Constable;constable_hay_wain.jpg
+40;The Four Times of Day: Evening;Jean-Baptiste-Camille Corot;corot_evening.jpg
+40;The Four Times of Day: Morning;Jean-Baptiste-Camille Corot;corot_morning.jpg
+40;The Four Times of Day: Night;Jean-Baptiste-Camille Corot;corot_night.jpg
+40;The Four Times of Day: Noon;Jean-Baptiste-Camille Corot;corot_noon.jpg
+40;Rain, Steam, and Speed - The Great Western Railway;Joseph Mallord William Turner;turner_rain_steam_speed.jpg
+40;The Fighting Temeraire;Joseph Mallord William Turner;turner_fighting_temeraire.jpg
+40;Ulysses deriding Polyphemus - Homer's Odyssey;Joseph Mallord William Turner;turner_ulysses_polyphemus.jpg
+
+41;Dardagny, Morning;Jean-Baptiste-Camille Corot;corot_dardagny_morning.jpg
+41;Italian Woman;Jean-Baptiste-Camille Corot;corot_italian_woman.jpg
+41;The Wagon ('Souvenir of Saintry');Jean-Baptiste-Camille Corot;corot_wagon_saintry.jpg
+41;Beach Scene;Hilaire-Germain-Edgar Degas;degas_beach_scene.jpg
+41;Corner of a Café-Concert;Edouard Manet;manet_cafe_concert.jpg
+41;Music in the Tuileries Gardens;Edouard Manet;manet_tuileries_gardens.jpg
+41;The Execution of Maximilian;Edouard Manet;manet_execution_maximilian.jpg
+41;Bathers at La Grenouillère;Claude Monet;monet_bathers_grenouillere.jpg
+41;The Gare St-Lazare;Claude Monet;monet_gare_st_lazare.jpg
+41;The Avenue, Sydenham;Camille Pissarro;pissarro_avenue_sydenham.jpg
+
+42;Portrait of a Man;Rosalba Carriera;carriera_portrait_man.jpg
+42;After the Bath, Woman drying herself;Hilaire-Germain-Edgar Degas;degas_after_bath.jpg
+42;Ballet Dancers;Hilaire-Germain-Edgar Degas;degas_ballet_dancers.jpg
+42;Ukrainian Dancers;Hilaire-Germain-Edgar Degas;degas_ukrainian_dancers.jpg
+42;Henry Dawkins;Maurice-Quentin de La Tour;latour_henry_dawkins.jpg
+42;The Lavergne Family Breakfast;Jean-Etienne Liotard;liotard_lavergne_breakfast.jpg
+42;Ophelia among the Flowers;Odilon Redon;redon_ophelia_flowers.jpg
+
+43;Ballet Dancers;Hilaire-Germain-Edgar Degas;degas_ballet_dancers_room43.jpg
+43;Peasant Girls bathing in the Sea at Dusk;Hilaire-Germain-Edgar Degas;degas_peasant_girls_bathing.jpg
+43;Portrait of Elena Carafa;Hilaire-Germain-Edgar Degas;degas_elena_carafa.jpg
+43;A Vase of Flowers;Paul Gauguin;gauguin_vase_flowers.jpg
+43;Bowl of Fruit and Tankard before a Window;Paul Gauguin;gauguin_fruit_tankard_window.jpg
+43;Faa Iheihe;Paul Gauguin;gauguin_faa_iheihe.jpg
+43;A Wheatfield, with Cypresses;Vincent van Gogh;vangogh_wheatfield_cypresses.jpg
+43;Sunflowers;Vincent van Gogh;vangogh_sunflowers_room43.jpg
+43;Van Gogh's Chair;Vincent van Gogh;vangogh_chair.jpg
+43;Woman with a Cat;Edouard Manet;manet_woman_cat.jpg
+
+44;An Old Woman with a Rosary;Paul Cezanne;cezanne_old_woman_rosary.jpg
+44;Avenue at Chantilly;Paul Cezanne;cezanne_avenue_chantilly.jpg
+44;Hillside in Provence;Paul Cezanne;cezanne_hillside_provence.jpg
+44;In the Bibémus Quarry;Paul Cezanne;cezanne_bibemus_quarry.jpg
+44;Self Portrait;Paul Cezanne;cezanne_self_portrait.jpg
+44;The Grounds of the Château Noir;Paul Cezanne;cezanne_chateau_noir.jpg
+44;Lake Keitele;Akseli Gallen-Kallela;gallen_kallela_lake_keitele.jpg
+44;The Boulevard Montmartre at Night;Camille Pissarro;pissarro_boulevard_montmartre.jpg
+44;Bathers at Asnières;Georges Seurat;seurat_bathers_asnieres.jpg
+44;The Seine seen from La Grande Jatte;Georges Seurat;seurat_seine_grande_jatte.jpg
+
+45;Men of the Docks;George Bellows;bellows_men_docks.jpg
+45;Bathers (Les Grandes Baigneuses);Paul Cezanne;cezanne_grandes_baigneuses.jpg
+45;Still Life with Water Jug;Paul Cezanne;cezanne_water_jug.jpg
+45;Combing the Hair ('La Coiffure');Hilaire-Germain-Edgar Degas;degas_la_coiffure.jpg
+45;Harvest: Le Pouldu;Paul Gauguin;gauguin_harvest_le_pouldu.jpg
+45;Interior;Vilhelm Hammershøi;hammershoi_interior.jpg
+45;Portrait of Greta Moll;Henri Matisse;matisse_greta_moll.jpg
+45;Fruit Dish, Bottle and Violin;Pablo Picasso;picasso_fruit_dish_bottle_violin.jpg
+45;Portrait of Joseph Brummer;Henri Rousseau;rousseau_joseph_brummer.jpg
+45;Surprised!;Henri Rousseau;rousseau_surprised.jpg
+
+46;Grainstack (Sunset: winter);Claude Monet;monet_grainstack_sunset_winter.jpg
+46;Irises;Claude Monet;monet_irises.jpg
+46;Poplars on the Epte;Claude Monet;monet_poplars_epte.jpg
+46;The Water-Lily Pond;Claude Monet;monet_water_lily_pond.jpg
+46;Water-lilies;Claude Monet;monet_water_lilies_lowercase.jpg
+46;Water-Lilies;Claude Monet;monet_water_lilies.jpg
+46;Water-Lilies, Setting Sun;Claude Monet;monet_water_lilies_setting_sun.jpg
+
+51a;The Burlington House Cartoon;Leonardo da Vinci;leonardo_burlington_house_cartoon.jpg
+
+51;Portrait of a Man;Antonello da Messina;antonello_portrait_man.jpg
+51;Portrait of a Young Man;Sandro Botticelli;botticelli_portrait_young_man.jpg
+51;The Wilton Diptych;English or French (?);wilton_diptych.jpg
+51;The Virgin of the Rocks;Leonardo da Vinci;leonardo_virgin_rocks.jpg
+51;Christ presented to the People: Left Hand Panel;Master of Delft;master_delft_christ_presented.jpg
+51;The Crucifixion: Central Panel;Master of Delft;master_delft_crucifixion.jpg
+51;The Deposition: Right Hand Panel;Master of Delft;master_delft_deposition.jpg
+51;Saint Veronica with the Sudarium;Master of Saint Veronica (Meister Wilhelm);meister_wilhelm_saint_veronica.jpg
+51;'The Manchester Madonna';Michelangelo;michelangelo_manchester_madonna.jpg
+51;The Adoration of the Shepherds;Ercole de' Roberti;roberti_adoration_shepherds.jpg
+
+52;The Trinity with Christ Crucified;Austrian;austrian_trinity_christ_crucified.jpg
+52;The Trinity and Mystic Pietà;Hans Baldung Grien;baldung_trinity_mystic_pieta.jpg
+52;Christ Crowned with Thorns;Dirk Bouts;bouts_christ_crowned_thorns.jpg
+52;Portrait of a Man (Jan van Winckele?);Dirk Bouts;bouts_portrait_man_winckele.jpg
+52;The Entombment;Dirk Bouts;bouts_entombment.jpg
+52;The Virgin and Child;Dirk Bouts;bouts_virgin_child.jpg
+52;A Man;Robert Campin;campin_man.jpg
+52;A Woman;Robert Campin;campin_woman.jpg
+52;The Virgin and Child before a Firescreen;Follower of Robert Campin;campin_follower_virgin_firescreen.jpg
+52;The Arnolfini Portrait;Jan van Eyck;van_eyck_arnolfini_portrait.jpg
+
+53;Adoration of the Kings;Gerard David;david_adoration_kings.jpg
+53;Canon Bernardijn Salviati and Three Saints;Gerard David;david_salviati_three_saints.jpg
+53;Christ Nailed to the Cross;Gerard David;david_christ_nailed_cross.jpg
+53;Lamentation;Gerard David;david_lamentation.jpg
+53;The Virgin and Child with Saints and Donor;Gerard David;david_virgin_child_saints_donor.jpg
+53;The Lamentation with Donors and Saints;Cornelis Engebrechtsz. and workshop;engebrechtsz_lamentation_donors.jpg
+53;The Adoration of the Kings;Jan Gossaert (Jean Gossart);gossaert_adoration_kings.jpg
+53;The Crucifixion;Quinten Massys;massys_crucifixion.jpg
+53;Saint John the Baptist;Hans Memling;memling_saint_john_baptist.jpg
+53;The Donne Triptych;Hans Memling;memling_donne_triptych.jpg
+
+54;Christ Mocked (The Crowning with Thorns);Hieronymus Bosch;bosch_christ_mocked.jpg
+54;The Adoration of the Kings;Pieter Bruegel the Elder;bruegel_adoration_kings.jpg
+54;A Man holding a Glove;Jan Gossaert (Jean Gossart);gossaert_man_glove.jpg
+54;A Young Princess (Dorothea of Denmark?);Jan Gossaert (Jean Gossart);gossaert_young_princess.jpg
+54;Adam and Eve;Jan Gossaert (Jean Gossart);gossaert_adam_eve.jpg
+54;An Elderly Couple;Jan Gossaert (Jean Gossart);gossaert_elderly_couple.jpg
+54;Man with a Rosary;Jan Gossaert (Jean Gossart);gossaert_man_rosary.jpg
+54;Portrait of a Woman;Catharina van Hemessen;hemessen_portrait_woman.jpg
+54;A Lady with a Squirrel and a Starling (Anne Lovell?);Hans Holbein the Younger;holbein_lady_squirrel_starling.jpg
+54;An Old Woman ('The Ugly Duchess');Quinten Massys;massys_ugly_duchess.jpg
+
+55;Christ taking Leave of his Mother;Albrecht Altdorfer;altdorfer_christ_mother.jpg
+55;Portrait of a Man;Hans Baldung Grien;baldung_portrait_man.jpg
+55;Cupid complaining to Venus;Lucas Cranach the Elder;cranach_cupid_venus.jpg
+55;Portrait of a Woman;Lucas Cranach the Elder;cranach_portrait_woman.jpg
+55;Portrait of Johann Friedrich the Magnanimous;Lucas Cranach the Elder;cranach_johann_friedrich.jpg
+55;Portrait of Johann the Steadfast;Lucas Cranach the Elder;cranach_johann_steadfast.jpg
+55;Primitive People;Lucas Cranach the Elder;cranach_primitive_people.jpg
+55;Saints Christina and Ottilia;Lucas Cranach the Elder;cranach_christina_ottilia.jpg
+55;Saints Genevieve and Apollonia;Lucas Cranach the Elder;cranach_genevieve_apollonia.jpg
+55;The Virgin and Child ('The Madonna with the Iris');Workshop of Albrecht Dürer with Hans Baldung Grien;durer_workshop_madonna_iris.jpg
+
+56;Landscape with a Footbridge;Albrecht Altdorfer;altdorfer_landscape_footbridge.jpg
+56;A Sparrowhawk;Jacopo de' Barbari;barbari_sparrowhawk.jpg
+56;Saint Jerome reading in a Landscape;Giovanni Bellini;bellini_saint_jerome_landscape.jpg
+56;Saint Jerome in a Landscape;Giovanni Battista Cima da Conegliano;cima_saint_jerome_landscape.jpg
+56;Il Tramonto (The Sunset);Giorgione;giorgione_il_tramonto.jpg
+56;Saint Christopher carrying the Infant Christ;Workshop of the Master of the Female Half-Lengths;female_halflengths_saint_christopher.jpg
+56;The Virgin and Child in a Landscape;Bernaert van Orley;vanorley_virgin_child_landscape.jpg
+56;Saint Jerome in a Rocky Landscape;Workshop of Joachim Patinir;patinir_workshop_saint_jerome.jpg
+56;The Fight between the Lapiths and the Centaurs;Piero di Cosimo;piero_di_cosimo_lapiths_centaurs.jpg
+56;The Vision of Saint Eustace;Pisanello;pisanello_vision_saint_eustace.jpg
+
+57;The Virgin and Child with Ten Saints;Andrea di Bonaiuto da Firenze;andrea_bonaiuto_virgin_child_ten_saints.jpg
+57;Christ Glorified in the Court of Heaven;Fra Angelico;fra_angelico_christ_glorified.jpg
+57;The Dominican Blessed;Fra Angelico;fra_angelico_dominican_blessed.jpg
+57;The Forerunners of Christ with Saints and Martyrs;Fra Angelico;fra_angelico_forerunners_christ.jpg
+57;The Virgin Mary with the Apostles and Other Saints;Fra Angelico;fra_angelico_virgin_mary_apostles.jpg
+57;The Crucifixion;Jacopo di Cione;jacopo_di_cione_crucifixion.jpg
+57;Adoring Saints: Left Main Tier Panel;Jacopo di Cione and workshop;jacopo_di_cione_adoring_saints_left.jpg
+57;Adoring Saints: Right Main Tier Panel;Jacopo di Cione and workshop;jacopo_di_cione_adoring_saints_right.jpg
+57;Pentecost: Upper Tier Panel;Jacopo di Cione and workshop;jacopo_di_cione_pentecost.jpg
+57;The Coronation of the Virgin;Lorenzo Monaco;lorenzo_monaco_coronation_virgin.jpg
+
+58;The Annunciation;Duccio;duccio_annunciation_room58.jpg
+58;The Healing of the Man born Blind;Duccio;duccio_healing_blind.jpg
+58;The Transfiguration;Duccio;duccio_transfiguration.jpg
+58;Saint John the Baptist retiring to the Desert;Giovanni di Paolo;giovanni_di_paolo_baptist_desert.jpg
+58;Saints Fabian and Sebastian;Giovanni di Paolo;giovanni_di_paolo_fabian_sebastian.jpg
+58;The Baptism of Christ: Predella Panel;Giovanni di Paolo;giovanni_di_paolo_baptism_christ.jpg
+58;The Birth of Saint John the Baptist: Predella Panel;Giovanni di Paolo;giovanni_di_paolo_birth_baptist.jpg
+58;The Head of John the Baptist brought to Herod;Giovanni di Paolo;giovanni_di_paolo_head_baptist.jpg
+58;Saint John the Evangelist;Simone Martini;simone_martini_saint_john.jpg
+58;The Marriage of the Virgin;Niccolò di Buonaccorso;buonaccorso_marriage_virgin.jpg
+
+59;The Dead Christ supported by Two Angels;Giovanni Bellini;bellini_dead_christ_two_angels_room59.jpg
+59;The Virgin and Child;Giovanni Bellini;bellini_virgin_child_room59.jpg
+59;Christ Crowned with Thorns;Giovanni Battista Cima da Conegliano;cima_christ_crowned_thorns.jpg
+59;The Incredulity of Saint Thomas;Giovanni Battista Cima da Conegliano;cima_incredulity_saint_thomas.jpg
+59;The Virgin and Child;Giovanni Battista Cima da Conegliano;cima_virgin_child.jpg
+59;Saint Vincent Ferrer;Francesco del Cossa;cossa_saint_vincent_ferrer.jpg
+59;The Annunciation, with Saint Emidius;Carlo Crivelli;crivelli_annunciation_saint_emidius.jpg
+59;The Dead Christ supported by Two Angels;Carlo Crivelli;crivelli_dead_christ_two_angels.jpg
+59;The Vision of the Blessed Gabriele;Carlo Crivelli;crivelli_blessed_gabriele.jpg
+59;Saint Jerome;Cosimo Tura;tura_saint_jerome.jpg
+
+60;The Virgin and Child Enthroned among Angels and Saints;Benozzo Gozzoli;gozzoli_virgin_child_enthroned.jpg
+60;Four Scenes from the Early Life of Saint Zenobius;Sandro Botticelli;botticelli_saint_zenobius_four_scenes.jpg
+60;Three Miracles of Saint Zenobius;Sandro Botticelli;botticelli_saint_zenobius_three_miracles.jpg
+60;Adoration of the Kings;Sandro Botticelli and Filippino Lippi;botticelli_lippi_adoration_kings.jpg
+60;The Virgin and Child;Domenico Ghirlandaio;ghirlandaio_virgin_child.jpg
+60;The Adoration of the Kings;Filippino Lippi;filippino_lippi_adoration_kings.jpg
+60;The Virgin and Child with Saints Jerome and Dominic;Filippino Lippi;filippino_lippi_virgin_saints.jpg
+60;Seven Saints;Fra Filippo Lippi;fra_filippo_lippi_seven_saints.jpg
+60;The Annunciation;Fra Filippo Lippi;fra_filippo_lippi_annunciation.jpg
+60;The Martyrdom of Saint Sebastian;Antonio del Pollaiuolo and Piero del Pollaiuolo;pollaiuolo_martyrdom_saint_sebastian.jpg
+
+61;Saint John the Baptist;Lorenzo Costa;costa_saint_john_baptist.jpg
+61;Saint John the Evangelist;Lorenzo Costa;costa_saint_john_evangelist.jpg
+61;Saint Peter;Lorenzo Costa;costa_saint_peter.jpg
+61;Saint Philip;Lorenzo Costa;costa_saint_philip.jpg
+61;The Virgin and Child enthroned with Angels;Lorenzo Costa;costa_virgin_child_enthroned.jpg
+61;The Story of Griselda, Part I: Marriage;Master of the Story of Griselda;griselda_part1_marriage.jpg
+61;The Story of Griselda, Part II: Exile;Master of the Story of Griselda;griselda_part2_exile.jpg
+61;The Story of Griselda, Part III: Reunion;Master of the Story of Griselda;griselda_part3_reunion.jpg
+61;Saint Catherine of Alexandria;Raphael;raphael_saint_catherine_alexandria_room61.jpg
+61;The Ansidei Madonna;Raphael;raphael_ansidei_madonna.jpg
+
+62;Portrait of a Lady;Alesso Baldovinetti;baldovinetti_portrait_lady.jpg
+62;The Adoration of the Kings;Sandro Botticelli;botticelli_adoration_kings_room62.jpg
+62;Venus and Mars;Sandro Botticelli;botticelli_venus_mars.jpg
+62;The Virgin and Child with a Pomegranate;Workshop of Sandro Botticelli;botticelli_workshop_pomegranate.jpg
+62;The Combat of Love and Chastity;Gherardo di Giovanni del Fora;ghirlandaio_combat_love_chastity.jpg
+62;Portrait of a Young Man in Red;Domenico Ghirlandaio;ghirlandaio_young_man_red.jpg
+62;The Story of David and Goliath;Francesco Pesellino;pesellino_david_goliath.jpg
+62;The Triumph of David;Francesco Pesellino;pesellino_triumph_david.jpg
+62;Saint George and the Dragon;Paolo Uccello;uccello_saint_george_dragon_room62.jpg
+62;The Battle of San Romano;Paolo Uccello;uccello_battle_san_romano.jpg
+
+63;Christ Blessing;Antonello da Messina;antonello_christ_blessing.jpg
+63;Christ Crucified;Antonello da Messina;antonello_christ_crucified.jpg
+63;Saint Jerome in his Study;Antonello da Messina;antonello_saint_jerome_study.jpg
+63;Doge Leonardo Loredan;Giovanni Bellini;bellini_doge_leonardo_loredan.jpg
+63;Madonna of the Meadow;Giovanni Bellini;bellini_madonna_meadow.jpg
+63;Portrait of Fra Teodoro of Urbino as Saint Dominic;Giovanni Bellini;bellini_fra_teodoro.jpg
+63;The Agony in the Garden;Giovanni Bellini;bellini_agony_garden_room63.jpg
+63;The Blood of the Redeemer;Giovanni Bellini;bellini_blood_redeemer.jpg
+63;Saint Jerome;Albrecht Dürer;durer_saint_jerome_room63.jpg
+63;The Adoration of the Kings;Giorgione;giorgione_adoration_kings.jpg
+
+64;The Virgin and Child;Possibly by Antonello da Messina;antonello_possible_virgin_child.jpg
+64;Cardinal Bessarion with the Bessarion Reliquary;Gentile Bellini;gentile_bellini_bessarion.jpg
+64;Saint Michael Triumphs over the Devil;Bartolomé Bermejo;bermejo_saint_michael.jpg
+64;'Mystic Nativity';Sandro Botticelli;botticelli_mystic_nativity.jpg
+64;Saint Francis of Assisi with Angels;Sandro Botticelli;botticelli_saint_francis_angels.jpg
+64;The Virgin and Child with Saints Dominic and Aurea;Duccio;duccio_virgin_child_dominic_aurea.jpg
+64;The Virgin and Child with Cherubim;Bernardino Fungai;fungai_virgin_child_cherubim.jpg
+64;The Virgin and Child;Masaccio;masaccio_virgin_child.jpg
+64;Virgin and Child;Hans Memling;memling_virgin_child_room64.jpg
+64;The Virgin and Child Enthroned with Angels and Saints;Michael Pacher;pacher_virgin_child_enthroned.jpg
+
+65;Pentecost;Barnaba da Modena;barnaba_pentecost.jpg
+65;The Virgin and Child with Two Angels;Cimabue;cimabue_virgin_child_two_angels.jpg
+65;The Vision of the Blessed Clare of Rimini;Francesco da Rimini;francesco_rimini_blessed_clare.jpg
+65;The Dead Christ and the Virgin;Neapolitan follower of Giotto;giotto_follower_dead_christ_virgin.jpg
+65;Scenes from the Lives of the Virgin and other Saints;Giovanni da Rimini;giovanni_rimini_lives_virgin_saints.jpg
+65;The Coronation of the Virgin, and Other Scenes;Giusto de' Menabuoi;menabuoi_coronation_virgin.jpg
+65;The Man of Sorrows;Probably by Jacobello del Bonomo;jacobello_man_sorrows.jpg
+65;The Madonna of Humility with Saints Mark and John;Lorenzo Veneziano;veneziano_madonna_humility.jpg
+65;The Virgin and Child Enthroned, with Narrative Scenes;Margarito d'Arezzo;margarito_virgin_child_enthroned.jpg
+65;Crucifix;Master of Saint Francis;master_saint_francis_crucifix.jpg
+
+66;Saint Michael;Piero della Francesca;piero_saint_michael.jpg
+66;The Baptism of Christ;Piero della Francesca;piero_baptism_christ.jpg
+66;The Nativity;Piero della Francesca;piero_nativity.jpg
+
+15_STAIRS;The Four Elements: Air;Joachim Beuckelaer;beuckelaer_air.jpg
+15_STAIRS;The Four Elements: Fire;Joachim Beuckelaer;beuckelaer_fire.jpg
+15_STAIRS;The Four Elements: Water;Joachim Beuckelaer;beuckelaer_water.jpg
+ANNENBERG_COURT;Messengers;Bridget Riley;riley_messengers.jpg
+CENTRAL_HALL;Louis-Auguste Schwiter;Eugène Delacroix;delacroix_louis_auguste_schwiter.jpg
+CENTRAL_HALL;Madame de Pompadour at her Tambour Frame;François-Hubert Drouais;drouais_madame_de_pompadour.jpg
+CENTRAL_HALL;Elizabeth Stuart, Queen of Bohemia;Gerrit van Honthorst;honthorst_elizabeth_stuart.jpg
+CENTRAL_HALL;Charles William Lambton;Sir Thomas Lawrence;lawrence_charles_lambton.jpg
+CENTRAL_HALL;Eva Gonzalès;Edouard Manet;manet_eva_gonzales.jpg
+CENTRAL_HALL;Queen Mariana of Spain in Mourning;Juan Bautista Martínez del Mazo;mazo_queen_mariana.jpg
+CENTRAL_HALL;Portrait of a Gentleman;Giovanni Battista Moroni;moroni_portrait_gentleman.jpg
+CENTRAL_HALL;Portrait of Don Justino de Neve;Bartolomé Esteban Murillo;murillo_don_justino_de_neve.jpg
+CENTRAL_HALL;Lord Ribblesdale;John Singer Sargent;sargent_lord_ribblesdale.jpg
+CENTRAL_HALL;Portrait of a Gentleman of the Soranzo Family;Paolo Veronese;veronese_soranzo_gentleman.jpg
+
+SUNLEY_ROOM;A Philosopher giving That Lecture on the Orrery in Which a Lamp Is Put in the Place of the Sun;Joseph Wright of Derby;wright_orrery.jpg
+SUNLEY_ROOM;An Experiment on a Bird in the Air Pump;Joseph Wright of Derby;wright_air_pump.jpg
+SAINSBURY_LIFT;Mud Sun;Richard Long;long_mud_sun.jpg

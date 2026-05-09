@@ -66,13 +66,20 @@ public class DataLoader {
 
     private static List<String[]> readCSVFile(File file) throws IOException {
         List<String[]> result = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
-                result.add(line.split(","));
+                // Handle both semicolon and comma delimiters
+                String[] parts;
+                if (line.contains(";")) {
+                    parts = line.split(";");
+                } else {
+                    parts = line.split(",");
+                }
+                result.add(parts);
             }
         }
-        return result;
-    }
+        return result;}
 }

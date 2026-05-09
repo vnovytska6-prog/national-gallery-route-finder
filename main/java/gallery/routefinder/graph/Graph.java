@@ -41,4 +41,40 @@ public class Graph {
             node.setPrevious(null);
         }
     }
+
+    public GraphNode getNodeByRoomName(String name) {
+        for (GraphNode node : allNodes) {
+            if (node.getRoom().getName().equalsIgnoreCase(name)) {
+                return node;
+            }
+            if (node.getRoom().getId().equalsIgnoreCase(name)) {
+                return node;
+            }
+        }
+        return null;
+    }
+
+    public GraphNode getNodeByArtworkTitle(String title) {
+        for (GraphNode node : allNodes) {
+            for (var artwork : node.getRoom().getArtworks()) {
+                if (artwork.getTitle().equalsIgnoreCase(title)) {
+                    return node;
+                }
+            }
+        }
+        return null;
+    }
+
+    public List<GraphNode> getNodesByArtist(String artist) {
+        List<GraphNode> result = new ArrayList<>();
+        for (GraphNode node : allNodes) {
+            for (var artwork : node.getRoom().getArtworks()) {
+                if (artwork.getArtist().equalsIgnoreCase(artist)) {
+                    result.add(node);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
 }
