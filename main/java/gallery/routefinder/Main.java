@@ -1,9 +1,9 @@
 package gallery.routefinder;
 
+import gallery.routefinder.algorithm.RouteFinder;
 import gallery.routefinder.db.DataLoader;
 import gallery.routefinder.graph.Graph;
 import gallery.routefinder.graph.GraphNode;
-import gallery.routefinder.algorithm.RouteFinder;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -16,12 +16,10 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.*;
-        import java.io.InputStream;
 
 public class Main extends Application {
 
     private Graph graph;
-    private RouteFinder routeFinder;
     private MapCanvas mapCanvas;
 
     // UI Components
@@ -43,7 +41,6 @@ public class Main extends Application {
     private List<String> roomDisplayNames = new ArrayList<>();
 
     public static void main(String[] args) {
-        // Выбор режима: если аргумент "console" - консоль, иначе - GUI
         if (args.length > 0 && args[0].equals("console")) {
             runConsoleMode();
         } else {
@@ -51,7 +48,6 @@ public class Main extends Application {
         }
     }
 
-    // Консольный режим (твой старый код)
     private static void runConsoleMode() {
         System.out.println("Gallery Route Finder\n");
         try {
@@ -62,9 +58,9 @@ public class Main extends Application {
             );
             System.out.println("Loaded rooms: " + graph.getAllNodes().size());
             for (GraphNode node : graph.getAllNodes()) {
-                System.out.println("  📍 " + node.getRoom().getName());
+                System.out.println("  " + node.getRoom().getName());
                 for (var artwork : node.getRoom().getArtworks()) {
-                    System.out.println("     🖼️ " + artwork);
+                    System.out.println("    🖼️ " + artwork);
                 }
             }
         } catch (Exception e) {
@@ -73,9 +69,8 @@ public class Main extends Application {
         }
     }
 
-    // GUI режим
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         showLoadingScreen(primaryStage);
 
         new Thread(() -> {
@@ -86,19 +81,21 @@ public class Main extends Application {
                     statusLabel.setText("Ready | " + graph.getAllNodes().size() + " rooms loaded");
                 });
             } catch (Exception e) {
-                Platform.runLater(() -> showError(primaryStage, e.getMessage()));
+                e.printStackTrace();
+                Platform.runLater(() -> {
+                    statusLabel.setText("Error: " + e.getMessage());
+                    showError(primaryStage, e.getMessage());
+                });
             }
         }).start();
     }
 
     private void loadData() throws Exception {
-        String basePath = System.getProperty("user.dir") + "/src/main/resources/";
         graph = DataLoader.loadFromCSV(
                 "rooms.csv",
                 "connections.csv",
                 "artworks.csv"
         );
-        routeFinder = new RouteFinder();
 
         for (GraphNode node : graph.getAllNodes()) {
             String display = node.getRoom().getName() + " [" + node.getRoom().getId() + "]";
@@ -136,8 +133,8 @@ public class Main extends Application {
 
         ScrollPane mapScroll = new ScrollPane(mapCanvas);
         mapScroll.setPannable(true);
-        mapScroll.setFitToWidth(false);
-        mapScroll.setFitToHeight(false);
+        mapScroll.setFitToWidth(true);
+        mapScroll.setFitToHeight(true);
 
         root.setCenter(mapScroll);
 
@@ -147,7 +144,7 @@ public class Main extends Application {
         routeInfoArea.setStyle("-fx-background-color: #2d2d2d; -fx-text-fill: #e0e0e0;");
 
         statusLabel = new Label("Loading...");
-        statusLabel.setStyle("-fx-text-fill: #aaa;");
+        statusLabel.setStyle("-fx-text-fill: #aaa; -fx-padding: 5;");
 
         VBox bottomBox = new VBox(routeInfoArea, statusLabel);
         root.setBottom(bottomBox);
@@ -164,21 +161,18 @@ public class Main extends Application {
         panel.setStyle("-fx-background-color: #2d2d2d;");
         panel.setPrefWidth(350);
 
-        // Start
         Label startLabel = new Label("📍 Starting Point:");
         startLabel.setTextFill(Color.WHITE);
         startCombo = new ComboBox<>();
         startCombo.getItems().addAll(roomDisplayNames);
         startCombo.setPromptText("Select start room");
 
-        // End
         Label endLabel = new Label("📍 Destination:");
         endLabel.setTextFill(Color.WHITE);
         endCombo = new ComboBox<>();
         endCombo.getItems().addAll(roomDisplayNames);
         endCombo.setPromptText("Select destination");
 
-        // Waypoints
         Label wpLabel = new Label("📍 Waypoints (must visit):");
         wpLabel.setTextFill(Color.ORANGE);
         waypointsList = new ListView<>();
@@ -190,7 +184,6 @@ public class Main extends Application {
         removeWp.setOnAction(e -> removeWaypoint());
         HBox wpBtns = new HBox(5, addWp, removeWp);
 
-        // Avoid
         Label avoidLabel = new Label("🚫 Rooms to Avoid:");
         avoidLabel.setTextFill(Color.RED);
         avoidList = new ListView<>();
@@ -202,7 +195,6 @@ public class Main extends Application {
         removeAvoid.setOnAction(e -> removeAvoidRoom());
         HBox avoidBtns = new HBox(5, addAvoid, removeAvoid);
 
-        // Artists
         Label artistLabel = new Label("🎨 Favorite Artists:");
         artistLabel.setTextFill(Color.PURPLE);
         artistField = new TextField();
@@ -210,7 +202,6 @@ public class Main extends Application {
         Button setArtists = new Button("Set Artists");
         setArtists.setOnAction(e -> setFavoriteArtists());
 
-        // Buttons
         Button anyRouteBtn = new Button("🔍 Find Any Route");
         anyRouteBtn.setOnAction(e -> findAnyRoute());
         Button multiRouteBtn = new Button("🔍 Multiple Routes (DFS)");
@@ -224,7 +215,6 @@ public class Main extends Application {
         Button clearBtn = new Button("🗑️ Clear Map");
         clearBtn.setOnAction(e -> clearMap());
 
-        // Results
         Label resultsLabel = new Label("📋 Found Routes:");
         resultsLabel.setTextFill(Color.CYAN);
         routesListView = new ListView<>();
@@ -259,6 +249,8 @@ public class Main extends Application {
         if (selected != null && !waypointsList.getItems().contains(selected)) {
             waypointsList.getItems().add(selected);
             waypoints.add(displayToNode.get(selected));
+        } else {
+            showAlert("Select a start point first");
         }
     }
 
@@ -307,46 +299,91 @@ public class Main extends Application {
     }
 
     private boolean validateSelections() {
-        return getStart() != null && getEnd() != null;
+        if (getStart() == null) {
+            showAlert("Please select a starting point!");
+            return false;
+        }
+        if (getEnd() == null) {
+            showAlert("Please select a destination!");
+            return false;
+        }
+        return true;
     }
+
+    // ========== ВЫЗОВЫ СТАТИЧЕСКИХ МЕТОДОВ ЧЕРЕЗ КЛАСС ==========
 
     private void findAnyRoute() {
         if (!validateSelections()) return;
         statusLabel.setText("Finding any route...");
-        List<GraphNode> route = routeFinder.findSingleRoute(getStart(), getEnd(), avoidRooms, waypoints);
-        displayResult(route, "Any Route");
+        try {
+            List<GraphNode> route = RouteFinder.findSingleRoute(getStart(), getEnd(), avoidRooms, waypoints);
+            displayResult(route, "Any Route");
+        } catch (Exception e) {
+            showAlert("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void findMultipleRoutes() {
         if (!validateSelections()) return;
         TextInputDialog dialog = new TextInputDialog("5");
         dialog.setTitle("Max Routes");
-        int maxRoutes = dialog.showAndWait().map(Integer::parseInt).orElse(5);
-        maxRoutes = Math.min(maxRoutes, 20);
+        dialog.setHeaderText("Maximum number of routes to find");
+        dialog.setContentText("Enter max routes (1-20):");
+
+        Optional<String> result = dialog.showAndWait();
+        int maxRoutes = 5;
+        if (result.isPresent()) {
+            try {
+                maxRoutes = Integer.parseInt(result.get());
+                maxRoutes = Math.min(maxRoutes, 20);
+            } catch (NumberFormatException ignored) {}
+        }
 
         statusLabel.setText("Finding multiple routes...");
-        foundRoutes = routeFinder.findMultipleRoutes(getStart(), getEnd(), maxRoutes, avoidRooms, waypoints,null);
+        try {
+            foundRoutes = RouteFinder.findMultipleRoutes(getStart(), getEnd(), maxRoutes, avoidRooms, waypoints, null);
 
-        routesListView.getItems().clear();
-        for (int i = 0; i < foundRoutes.size(); i++) {
-            double dist = routeFinder.calculateRouteDistance(foundRoutes.get(i));
-            routesListView.getItems().add(String.format("Route %d: %.0f units", i+1, dist));
+            if (foundRoutes == null || foundRoutes.isEmpty()) {
+                showAlert("No routes found!");
+                return;
+            }
+
+            routesListView.getItems().clear();
+            for (int i = 0; i < foundRoutes.size(); i++) {
+                double dist = RouteFinder.calculateRouteDistance(foundRoutes.get(i));
+                routesListView.getItems().add(String.format("Route %d: %.0f units, %d rooms", i+1, dist, foundRoutes.get(i).size()));
+            }
+            if (!foundRoutes.isEmpty()) displayRoute(foundRoutes.get(0));
+            statusLabel.setText("Found " + foundRoutes.size() + " routes");
+        } catch (Exception e) {
+            showAlert("Error: " + e.getMessage());
+            e.printStackTrace();
         }
-        if (!foundRoutes.isEmpty()) displayRoute(foundRoutes.get(0));
     }
 
     private void findDijkstraRoute() {
         if (!validateSelections()) return;
         statusLabel.setText("Running Dijkstra...");
-        List<GraphNode> route = routeFinder.dijkstraShortestPath(getStart(), getEnd(), avoidRooms, waypoints);
-        displayResult(route, "Dijkstra");
+        try {
+            List<GraphNode> route = RouteFinder.dijkstraShortestPath(getStart(), getEnd(), avoidRooms, waypoints);
+            displayResult(route, "Dijkstra");
+        } catch (Exception e) {
+            showAlert("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void findBFSRoute() {
         if (!validateSelections()) return;
         statusLabel.setText("Running BFS...");
-        List<GraphNode> route = routeFinder.bfsShortestPath(getStart(), getEnd(), avoidRooms, waypoints);
-        displayResult(route, "BFS");
+        try {
+            List<GraphNode> route = RouteFinder.bfsShortestPath(getStart(), getEnd(), avoidRooms, waypoints);
+            displayResult(route, "BFS");
+        } catch (Exception e) {
+            showAlert("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void findInterestingRoute() {
@@ -356,41 +393,56 @@ public class Main extends Application {
             return;
         }
         statusLabel.setText("Finding interesting route...");
-        List<GraphNode> route = routeFinder.mostInterestingRoute(graph, getStart(), getEnd(), favoriteArtists, avoidRooms, waypoints);
-        displayResult(route, "Interesting");
+        try {
+            List<GraphNode> route = RouteFinder.mostInterestingRoute(graph, getStart(), getEnd(), favoriteArtists, avoidRooms, waypoints);
+            displayResult(route, "Interesting");
+        } catch (Exception e) {
+            showAlert("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void clearMap() {
-        mapCanvas.clearRoutes();
+        if (mapCanvas != null) {
+            mapCanvas.clearRoutes();
+        }
         routeInfoArea.clear();
+        routesListView.getItems().clear();
+        foundRoutes.clear();
         statusLabel.setText("Map cleared");
     }
 
     private void displayResult(List<GraphNode> route, String title) {
         if (route == null || route.isEmpty()) {
             showAlert("No route found!");
+            statusLabel.setText("No route found");
             return;
         }
-        foundRoutes = List.of(route);
+        foundRoutes = new ArrayList<>();
+        foundRoutes.add(route);
         displayRoute(route);
-        double dist = routeFinder.calculateRouteDistance(route);
+        double dist = RouteFinder.calculateRouteDistance(route);
         statusLabel.setText(title + " | " + route.size() + " rooms | " + String.format("%.0f", dist) + " units");
     }
 
     private void displayRoute(List<GraphNode> route) {
-        mapCanvas.setAvoidRooms(avoidRooms);
-        mapCanvas.displayRoute(route);
+        if (mapCanvas != null) {
+            mapCanvas.setAvoidRooms(avoidRooms);
+            mapCanvas.displayRoute(route);
+        }
 
         StringBuilder info = new StringBuilder();
-        info.append("Route: ").append(route.size()).append(" rooms\n");
-        info.append("Distance: ").append(String.format("%.0f", routeFinder.calculateRouteDistance(route))).append(" units\n\n");
+        info.append("═══════════════════════════════════════════════════════════════\n");
+        info.append("  Route: ").append(route.size()).append(" rooms\n");
+        info.append("  Distance: ").append(String.format("%.0f", RouteFinder.calculateRouteDistance(route))).append(" units\n");
+        info.append("═══════════════════════════════════════════════════════════════\n\n");
 
         for (int i = 0; i < route.size(); i++) {
             GraphNode node = route.get(i);
-            info.append(String.format("%d. %s\n", i+1, node.getRoom().getName()));
+            info.append(String.format("%2d. %s\n", i + 1, node.getRoom().getName()));
             for (var art : node.getRoom().getArtworks()) {
                 String star = favoriteArtists.contains(art.getArtist().toLowerCase()) ? " ★" : "";
-                info.append(String.format("   🖼️ %s by %s%s\n", art.getTitle(), art.getArtist(), star));
+                info.append(String.format("     🖼️ %s by %s%s\n", art.getTitle(), art.getArtist(), star));
             }
         }
         routeInfoArea.setText(info.toString());
@@ -398,6 +450,8 @@ public class Main extends Application {
 
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
@@ -405,8 +459,9 @@ public class Main extends Application {
     private void showError(Stage stage, String error) {
         Label errorLabel = new Label("Error: " + error);
         errorLabel.setTextFill(Color.RED);
-        stage.getScene().setRoot(errorLabel);
+        VBox root = new VBox(errorLabel);
+        root.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(root, 400, 200);
+        stage.setScene(scene);
     }
 }
-
-

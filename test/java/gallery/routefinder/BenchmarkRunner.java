@@ -13,10 +13,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-/**
- * JMH Benchmark for RouteFinder algorithms.
- * Measures performance of different pathfinding algorithms.
- */
+//JMH Benchmark for RouteFinder algorith performance of different pathfinding algorithms
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @State(Scope.Benchmark)

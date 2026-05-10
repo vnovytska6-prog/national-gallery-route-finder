@@ -4,11 +4,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import java.util.*;
 
-/**
- * BFS Pixel-by-Pixel path finder for the gallery map.
- * This finds the shortest path between two points on the map image itself,
- * not using the room graph.
- */
+ //BFS Pixel-by-Pixel path finder for the gallery map
+ // finds the shortest path between two points on the map image itself
+
 public class PixelBFS {
 
     private Image mapImage;
@@ -20,10 +18,7 @@ public class PixelBFS {
         analyzeMap();
     }
 
-    /**
-     * Analyzes the map to determine which pixels are walkable.
-     * Walkable = white/light areas (rooms, corridors, doorways)
-     */
+    //Analyses map to determine which pixels are walkable (white/light areas)
     private void analyzeMap() {
         width = (int) mapImage.getWidth();
         height = (int) mapImage.getHeight();
