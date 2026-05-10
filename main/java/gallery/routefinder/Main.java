@@ -313,7 +313,7 @@ public class Main extends Application {
     private void findAnyRoute() {
         if (!validateSelections()) return;
         statusLabel.setText("Finding any route...");
-        List<GraphNode> route = routeFinder.findSingleRoute(graph, getStart(), getEnd(), avoidRooms, waypoints);
+        List<GraphNode> route = routeFinder.findSingleRoute(getStart(), getEnd(), avoidRooms, waypoints);
         displayResult(route, "Any Route");
     }
 
@@ -325,7 +325,7 @@ public class Main extends Application {
         maxRoutes = Math.min(maxRoutes, 20);
 
         statusLabel.setText("Finding multiple routes...");
-        foundRoutes = routeFinder.findMultipleRoutes(graph, getStart(), getEnd(), maxRoutes, avoidRooms, waypoints,null);
+        foundRoutes = routeFinder.findMultipleRoutes(getStart(), getEnd(), maxRoutes, avoidRooms, waypoints,null);
 
         routesListView.getItems().clear();
         for (int i = 0; i < foundRoutes.size(); i++) {
@@ -338,14 +338,14 @@ public class Main extends Application {
     private void findDijkstraRoute() {
         if (!validateSelections()) return;
         statusLabel.setText("Running Dijkstra...");
-        List<GraphNode> route = routeFinder.dijkstraShortestPath(graph, getStart(), getEnd(), avoidRooms, waypoints);
+        List<GraphNode> route = routeFinder.dijkstraShortestPath(getStart(), getEnd(), avoidRooms, waypoints);
         displayResult(route, "Dijkstra");
     }
 
     private void findBFSRoute() {
         if (!validateSelections()) return;
         statusLabel.setText("Running BFS...");
-        List<GraphNode> route = routeFinder.bfsShortestPath(graph, getStart(), getEnd(), avoidRooms, waypoints);
+        List<GraphNode> route = routeFinder.bfsShortestPath(getStart(), getEnd(), avoidRooms, waypoints);
         displayResult(route, "BFS");
     }
 
