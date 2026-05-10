@@ -7,7 +7,6 @@ import java.util.List;
 public class GraphNode {
     private Room room;
     private List<GraphEdge> edges;
-    private List<GraphNode> nodes;
     private double distanceFromStart;
     private boolean visited;
     private GraphNode previous;
@@ -15,7 +14,6 @@ public class GraphNode {
     public GraphNode(Room room) {
         this.room = room;
         this.edges = new ArrayList<>();
-        this.nodes = new ArrayList<>();
         this.distanceFromStart = Double.POSITIVE_INFINITY;
         this.visited = false;
         this.previous = null;
@@ -28,7 +26,6 @@ public class GraphNode {
     // Getters and setters
     public Room getRoom() { return room; }
     public List<GraphEdge> getEdges() { return edges; }
-    public List<GraphNode> getNodes() { return nodes; }
     public double getDistanceFromStart() { return distanceFromStart; }
     public void setDistanceFromStart(double distance) { this.distanceFromStart = distance; }
     public boolean isVisited() { return visited; }
@@ -40,4 +37,15 @@ public class GraphNode {
     public String toString() {
         return room.getName();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        GraphNode other = (GraphNode) obj;
+        return room.getId().equals(other.room.getId());
+    }
+
+    @Override
+    public int hashCode() { return room.getId().hashCode(); }
 }

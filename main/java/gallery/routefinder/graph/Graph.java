@@ -1,6 +1,7 @@
 package gallery.routefinder.graph;
 
 import gallery.routefinder.model.Room;
+import gallery.routefinder.model.Artwork;
 import java.util.*;
 
 public class Graph {
@@ -67,14 +68,15 @@ public class Graph {
 
     public List<GraphNode> getNodesByArtist(String artist) {
         List<GraphNode> result = new ArrayList<>();
+        String artistLower = artist.toLowerCase();
         for (GraphNode node : allNodes) {
-            for (var artwork : node.getRoom().getArtworks()) {
-                if (artwork.getArtist().equalsIgnoreCase(artist)) {
+            for (Artwork artwork : node.getRoom().getArtworks()) {
+                if (artwork.getArtist().toLowerCase().contains(artistLower) ||
+                        artistLower.contains(artwork.getArtist().toLowerCase())) {
                     result.add(node);
                     break;
                 }
             }
         }
-        return result;
-    }
+        return result;}
 }

@@ -4,6 +4,7 @@ import gallery.routefinder.algorithm.RouteFinder;
 import gallery.routefinder.db.DataLoader;
 import gallery.routefinder.graph.Graph;
 import gallery.routefinder.graph.GraphNode;
+import gallery.routefinder.model.Artwork;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -25,8 +26,10 @@ public class Main extends Application {
     // UI Components
     private ComboBox<String> startCombo;
     private ComboBox<String> endCombo;
-    private ListView<String> waypointsList;
-    private ListView<String> avoidList;
+    private ComboBox<String> waypointCombo;
+    private ComboBox<String> avoidCombo;
+    private ListView<String> waypointsListView;
+    private ListView<String> avoidListView;
     private TextField artistField;
     private TextArea routeInfoArea;
     private ListView<String> routesListView;
@@ -40,6 +43,10 @@ public class Main extends Application {
     private List<List<GraphNode>> foundRoutes = new ArrayList<>();
     private List<String> roomDisplayNames = new ArrayList<>();
 
+    // Pixel BFS
+    private boolean selectingPixelStart = false;
+    private int[] pixelStart = null;
+
     public static void main(String[] args) {
         if (args.length > 0 && args[0].equals("console")) {
             runConsoleMode();
@@ -51,15 +58,11 @@ public class Main extends Application {
     private static void runConsoleMode() {
         System.out.println("Gallery Route Finder\n");
         try {
-            Graph graph = DataLoader.loadFromCSV(
-                    "rooms.csv",
-                    "connections.csv",
-                    "artworks.csv"
-            );
+            Graph graph = DataLoader.loadFromCSV("rooms.csv", "connections.csv", "artworks.csv");
             System.out.println("Loaded rooms: " + graph.getAllNodes().size());
             for (GraphNode node : graph.getAllNodes()) {
                 System.out.println("  " + node.getRoom().getName());
-                for (var artwork : node.getRoom().getArtworks()) {
+                for (Artwork artwork : node.getRoom().getArtworks()) {
                     System.out.println("    🖼️ " + artwork);
                 }
             }
@@ -91,11 +94,7 @@ public class Main extends Application {
     }
 
     private void loadData() throws Exception {
-        graph = DataLoader.loadFromCSV(
-                "rooms.csv",
-                "connections.csv",
-                "artworks.csv"
-        );
+        graph = DataLoader.loadFromCSV("rooms.csv", "connections.csv", "artworks.csv");
 
         for (GraphNode node : graph.getAllNodes()) {
             String display = node.getRoom().getName() + " [" + node.getRoom().getId() + "]";
@@ -109,14 +108,11 @@ public class Main extends Application {
         VBox loadingBox = new VBox(20);
         loadingBox.setAlignment(Pos.CENTER);
         loadingBox.setStyle("-fx-background-color: #1a1a2e;");
-
         Label title = new Label("🏛️ NATIONAL GALLERY");
         title.setFont(Font.font("Arial", 36));
         title.setTextFill(Color.WHITE);
-
         ProgressIndicator progress = new ProgressIndicator();
         loadingBox.getChildren().addAll(title, progress);
-
         Scene scene = new Scene(loadingBox, 400, 300);
         stage.setTitle("National Gallery Route Finder");
         stage.setScene(scene);
@@ -127,20 +123,26 @@ public class Main extends Application {
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #1e1e1e;");
 
-        root.setLeft(createControlPanel());
+        // Left panel with ScrollPane
+        ScrollPane leftScrollPane = new ScrollPane(createControlPanel());
+        leftScrollPane.setFitToWidth(true);
+        leftScrollPane.setFitToHeight(false);
+        leftScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        leftScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        leftScrollPane.setStyle("-fx-background-color: #2d2d2d; -fx-background: #2d2d2d;");
+        leftScrollPane.setPrefWidth(380);
+        root.setLeft(leftScrollPane);
 
         mapCanvas = new MapCanvas(graph);
-
         ScrollPane mapScroll = new ScrollPane(mapCanvas);
         mapScroll.setPannable(true);
-        mapScroll.setFitToWidth(true);
-        mapScroll.setFitToHeight(true);
-
+        mapScroll.setFitToWidth(false);
+        mapScroll.setFitToHeight(false);
         root.setCenter(mapScroll);
 
         routeInfoArea = new TextArea();
         routeInfoArea.setEditable(false);
-        routeInfoArea.setPrefHeight(180);
+        routeInfoArea.setPrefHeight(200);
         routeInfoArea.setStyle("-fx-background-color: #2d2d2d; -fx-text-fill: #e0e0e0;");
 
         statusLabel = new Label("Loading...");
@@ -149,9 +151,10 @@ public class Main extends Application {
         VBox bottomBox = new VBox(routeInfoArea, statusLabel);
         root.setBottom(bottomBox);
 
-        Scene scene = new Scene(root, 1400, 850);
+        Scene scene = new Scene(root, 1200, 750);
         stage.setScene(scene);
-        stage.setMaximized(true);
+        stage.setMaximized(false);
+        stage.centerOnScreen();
         stage.show();
     }
 
@@ -159,24 +162,32 @@ public class Main extends Application {
         VBox panel = new VBox(10);
         panel.setPadding(new Insets(15));
         panel.setStyle("-fx-background-color: #2d2d2d;");
-        panel.setPrefWidth(350);
 
+        // Start room
         Label startLabel = new Label("📍 Starting Point:");
         startLabel.setTextFill(Color.WHITE);
         startCombo = new ComboBox<>();
         startCombo.getItems().addAll(roomDisplayNames);
         startCombo.setPromptText("Select start room");
+        startCombo.setOnAction(e -> updateSelectedPoints());
 
+        // Destination room
         Label endLabel = new Label("📍 Destination:");
         endLabel.setTextFill(Color.WHITE);
         endCombo = new ComboBox<>();
         endCombo.getItems().addAll(roomDisplayNames);
         endCombo.setPromptText("Select destination");
+        endCombo.setOnAction(e -> updateSelectedPoints());
 
-        Label wpLabel = new Label("📍 Waypoints (must visit):");
+        // Waypoint selection
+        Label wpLabel = new Label("📍 Add Waypoint:");
         wpLabel.setTextFill(Color.ORANGE);
-        waypointsList = new ListView<>();
-        waypointsList.setPrefHeight(80);
+        waypointCombo = new ComboBox<>();
+        waypointCombo.getItems().addAll(roomDisplayNames);
+        waypointCombo.setPromptText("Select room as waypoint");
+
+        waypointsListView = new ListView<>();
+        waypointsListView.setPrefHeight(80);
 
         Button addWp = new Button("+ Add Waypoint");
         addWp.setOnAction(e -> addWaypoint());
@@ -184,10 +195,15 @@ public class Main extends Application {
         removeWp.setOnAction(e -> removeWaypoint());
         HBox wpBtns = new HBox(5, addWp, removeWp);
 
-        Label avoidLabel = new Label("🚫 Rooms to Avoid:");
+        // Avoid room selection
+        Label avoidLabel = new Label("🚫 Add Room to Avoid:");
         avoidLabel.setTextFill(Color.RED);
-        avoidList = new ListView<>();
-        avoidList.setPrefHeight(80);
+        avoidCombo = new ComboBox<>();
+        avoidCombo.getItems().addAll(roomDisplayNames);
+        avoidCombo.setPromptText("Select room to avoid");
+
+        avoidListView = new ListView<>();
+        avoidListView.setPrefHeight(80);
 
         Button addAvoid = new Button("+ Add to Avoid");
         addAvoid.setOnAction(e -> addAvoidRoom());
@@ -195,6 +211,7 @@ public class Main extends Application {
         removeAvoid.setOnAction(e -> removeAvoidRoom());
         HBox avoidBtns = new HBox(5, addAvoid, removeAvoid);
 
+        // Artists
         Label artistLabel = new Label("🎨 Favorite Artists:");
         artistLabel.setTextFill(Color.PURPLE);
         artistField = new TextField();
@@ -202,19 +219,23 @@ public class Main extends Application {
         Button setArtists = new Button("Set Artists");
         setArtists.setOnAction(e -> setFavoriteArtists());
 
-        Button anyRouteBtn = new Button("🔍 Find Any Route");
+        // Buttons
+        Button anyRouteBtn = new Button("Find Any Route");
         anyRouteBtn.setOnAction(e -> findAnyRoute());
-        Button multiRouteBtn = new Button("🔍 Multiple Routes (DFS)");
+        Button multiRouteBtn = new Button("Multiple Routes (DFS)");
         multiRouteBtn.setOnAction(e -> findMultipleRoutes());
-        Button dijkstraBtn = new Button("⚡ Shortest (Dijkstra)");
+        Button dijkstraBtn = new Button("Shortest Path (Dijkstra)");
         dijkstraBtn.setOnAction(e -> findDijkstraRoute());
-        Button bfsBtn = new Button("🌲 Shortest (BFS Graph)");
+        Button bfsBtn = new Button("BFS Graph Route");
         bfsBtn.setOnAction(e -> findBFSRoute());
-        Button interestingBtn = new Button("⭐ Most Interesting");
+        Button interestingBtn = new Button("Most Interesting Route ⭐");
         interestingBtn.setOnAction(e -> findInterestingRoute());
-        Button clearBtn = new Button("🗑️ Clear Map");
+        Button pixelBfsBtn = new Button("Pixel BFS (Click on Map)");
+        pixelBfsBtn.setOnAction(e -> startPixelSelection());
+        Button clearBtn = new Button("🗑 Clear Map");
         clearBtn.setOnAction(e -> clearMap());
 
+        // Results list
         Label resultsLabel = new Label("📋 Found Routes:");
         resultsLabel.setTextFill(Color.CYAN);
         routesListView = new ListView<>();
@@ -230,13 +251,13 @@ public class Main extends Application {
                 startLabel, startCombo,
                 endLabel, endCombo,
                 new Separator(),
-                wpLabel, waypointsList, wpBtns,
+                wpLabel, waypointCombo, waypointsListView, wpBtns,
                 new Separator(),
-                avoidLabel, avoidList, avoidBtns,
+                avoidLabel, avoidCombo, avoidListView, avoidBtns,
                 new Separator(),
                 artistLabel, artistField, setArtists,
                 new Separator(),
-                anyRouteBtn, multiRouteBtn, dijkstraBtn, bfsBtn, interestingBtn, clearBtn,
+                anyRouteBtn, multiRouteBtn, dijkstraBtn, bfsBtn, interestingBtn, pixelBfsBtn, clearBtn,
                 new Separator(),
                 resultsLabel, routesListView
         );
@@ -244,50 +265,132 @@ public class Main extends Application {
         return panel;
     }
 
+    private void updateSelectedPoints() {
+        GraphNode start = getStart();
+        GraphNode end = getEnd();
+        mapCanvas.setSelectedPoints(start, end);
+    }
+
     private void addWaypoint() {
-        String selected = startCombo.getValue();
-        if (selected != null && !waypointsList.getItems().contains(selected)) {
-            waypointsList.getItems().add(selected);
+        String selected = waypointCombo.getValue();
+        if (selected != null) {
+            waypointsListView.getItems().add(selected);
             waypoints.add(displayToNode.get(selected));
+            waypointCombo.setValue(null);
+            mapCanvas.setWaypoints(waypoints);
         } else {
-            showAlert("Select a start point first");
+            showAlert("Select a room from the waypoint dropdown");
         }
     }
 
     private void removeWaypoint() {
-        int idx = waypointsList.getSelectionModel().getSelectedIndex();
+        int idx = waypointsListView.getSelectionModel().getSelectedIndex();
         if (idx >= 0) {
-            waypointsList.getItems().remove(idx);
+            waypointsListView.getItems().remove(idx);
             waypoints.remove(idx);
+            mapCanvas.setWaypoints(waypoints);
         }
     }
 
     private void addAvoidRoom() {
-        String selected = startCombo.getValue();
-        if (selected != null && !avoidList.getItems().contains(selected)) {
-            avoidList.getItems().add(selected);
+        String selected = avoidCombo.getValue();
+        if (selected != null) {
+            avoidListView.getItems().add(selected);
             avoidRooms.add(displayToNode.get(selected).getRoom().getId());
+            avoidCombo.setValue(null);
+            mapCanvas.setAvoidRooms(avoidRooms);
+        } else {
+            showAlert("Select a room from the avoid dropdown");
         }
     }
 
     private void removeAvoidRoom() {
-        int idx = avoidList.getSelectionModel().getSelectedIndex();
+        int idx = avoidListView.getSelectionModel().getSelectedIndex();
         if (idx >= 0) {
-            String item = avoidList.getItems().get(idx);
-            avoidList.getItems().remove(idx);
+            String item = avoidListView.getItems().get(idx);
+            avoidListView.getItems().remove(idx);
             GraphNode node = displayToNode.get(item);
             if (node != null) avoidRooms.remove(node.getRoom().getId());
+            mapCanvas.setAvoidRooms(avoidRooms);
         }
     }
 
     private void setFavoriteArtists() {
         String text = artistField.getText();
         favoriteArtists.clear();
+        StringBuilder msg = new StringBuilder("Favorite artists set:\n");
         for (String artist : text.split(",")) {
-            String trimmed = artist.trim().toLowerCase();
-            if (!trimmed.isEmpty()) favoriteArtists.add(trimmed);
+            String trimmed = artist.trim();
+            if (!trimmed.isEmpty()) {
+                favoriteArtists.add(trimmed.toLowerCase());
+                msg.append("  - ").append(trimmed).append("\n");
+            }
         }
-        showAlert("Favorite artists set: " + favoriteArtists);
+        msg.append("\nNow click \"Most Interesting Route\"");
+        routeInfoArea.setText(msg.toString());
+        statusLabel.setText("Artists set: " + favoriteArtists);
+        showAlert(msg.toString());
+    }
+
+    private void startPixelSelection() {
+        selectingPixelStart = true;
+        pixelStart = null;
+        statusLabel.setText("Click on map to select START point for pixel BFS");
+        mapCanvas.setPixelSelectionMode(true, (x, y) -> Platform.runLater(() -> onPixelSelected(x, y)));
+    }
+
+    private void onPixelSelected(int x, int y) {
+        if (selectingPixelStart) {
+            pixelStart = new int[]{x, y};
+            selectingPixelStart = false;
+            statusLabel.setText("Now click on map to select END point");
+        } else if (pixelStart != null) {
+            int[] pixelEnd = new int[]{x, y};
+            selectingPixelStart = false;
+            mapCanvas.setPixelSelectionMode(false, null);
+
+            statusLabel.setText("Running Pixel BFS...");
+
+            new Thread(() -> {
+                try {
+                    PixelBFS pixelBFS = new PixelBFS("/level2bw.png");
+                    PixelBFS.PixelPathResult result = pixelBFS.findShortestPath(
+                            pixelStart[0], pixelStart[1], pixelEnd[0], pixelEnd[1]
+                    );
+
+                    Platform.runLater(() -> {
+                        if (result.path != null && !result.path.isEmpty()) {
+                            mapCanvas.displayPixelPath(result.path);
+                            routeInfoArea.setText(String.format(
+                                    "═══════════════════════════════════════════════════════════════\n" +
+                                            "  PIXEL BFS PATH FINDING\n" +
+                                            "═══════════════════════════════════════════════════════════════\n\n" +
+                                            "  Start point: (%d, %d)\n" +
+                                            "  End point: (%d, %d)\n" +
+                                            "  Steps: %d\n" +
+                                            "  Path points: %d\n\n" +
+                                            "  NOTE: This path follows walkable areas (white pixels)\n" +
+                                            "  on the black-and-white map image.\n" +
+                                            "  Distance is measured in pixel steps.",
+                                    pixelStart[0], pixelStart[1], pixelEnd[0], pixelEnd[1],
+                                    result.distance, result.path.size()
+                            ));
+                            statusLabel.setText(String.format("Pixel BFS complete! Distance: %d steps", result.distance));
+                        } else {
+                            showAlert("No walkable path found between selected points!");
+                            statusLabel.setText("No pixel path found");
+                        }
+                    });
+                } catch (Exception e) {
+                    Platform.runLater(() -> {
+                        showAlert("Pixel BFS error: " + e.getMessage());
+                        statusLabel.setText("Pixel BFS error");
+                    });
+                }
+            }).start();
+
+            pixelStart = null;
+        }
     }
 
     private GraphNode getStart() {
@@ -310,18 +413,23 @@ public class Main extends Application {
         return true;
     }
 
-    // ========== ВЫЗОВЫ СТАТИЧЕСКИХ МЕТОДОВ ЧЕРЕЗ КЛАСС ==========
-
     private void findAnyRoute() {
         if (!validateSelections()) return;
         statusLabel.setText("Finding any route...");
-        try {
-            List<GraphNode> route = RouteFinder.findSingleRoute(getStart(), getEnd(), avoidRooms, waypoints);
-            displayResult(route, "Any Route");
-        } catch (Exception e) {
-            showAlert("Error: " + e.getMessage());
-            e.printStackTrace();
-        }
+        GraphNode start = getStart();
+        GraphNode end = getEnd();
+
+        new Thread(() -> {
+            try {
+                List<GraphNode> route = RouteFinder.findSingleRoute(start, end, avoidRooms, waypoints);
+                Platform.runLater(() -> displayResult(route, "Any Route (DFS)"));
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    showAlert("Error: " + e.getMessage());
+                    statusLabel.setText("Error finding route");
+                });
+            }
+        }).start();
     }
 
     private void findMultipleRoutes() {
@@ -329,61 +437,85 @@ public class Main extends Application {
         TextInputDialog dialog = new TextInputDialog("5");
         dialog.setTitle("Max Routes");
         dialog.setHeaderText("Maximum number of routes to find");
-        dialog.setContentText("Enter max routes (1-20):");
+        dialog.setContentText("Enter max routes (1-10):");
 
         Optional<String> result = dialog.showAndWait();
         int maxRoutes = 5;
         if (result.isPresent()) {
             try {
                 maxRoutes = Integer.parseInt(result.get());
-                maxRoutes = Math.min(maxRoutes, 20);
+                maxRoutes = Math.min(maxRoutes, 10);
             } catch (NumberFormatException ignored) {}
         }
 
         statusLabel.setText("Finding multiple routes...");
-        try {
-            foundRoutes = RouteFinder.findMultipleRoutes(getStart(), getEnd(), maxRoutes, avoidRooms, waypoints, null);
+        GraphNode start = getStart();
+        GraphNode end = getEnd();
 
-            if (foundRoutes == null || foundRoutes.isEmpty()) {
-                showAlert("No routes found!");
-                return;
-            }
+        new Thread(() -> {
+            try {
+                foundRoutes = RouteFinder.findMultipleRoutes(start, end, maxRoutes, avoidRooms, waypoints, null);
 
-            routesListView.getItems().clear();
-            for (int i = 0; i < foundRoutes.size(); i++) {
-                double dist = RouteFinder.calculateRouteDistance(foundRoutes.get(i));
-                routesListView.getItems().add(String.format("Route %d: %.0f units, %d rooms", i+1, dist, foundRoutes.get(i).size()));
+                Platform.runLater(() -> {
+                    if (foundRoutes == null || foundRoutes.isEmpty()) {
+                        showAlert("No routes found!");
+                        statusLabel.setText("No routes found");
+                        return;
+                    }
+
+                    routesListView.getItems().clear();
+                    for (int i = 0; i < foundRoutes.size(); i++) {
+                        double dist = RouteFinder.calculateRouteDistance(foundRoutes.get(i));
+                        routesListView.getItems().add(String.format("Route %d: %.0f units, %d rooms", i+1, dist, foundRoutes.get(i).size()));
+                    }
+                    if (!foundRoutes.isEmpty()) displayRoute(foundRoutes.get(0));
+                    statusLabel.setText("Found " + foundRoutes.size() + " routes");
+                });
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    showAlert("Error: " + e.getMessage());
+                    statusLabel.setText("Error finding routes");
+                });
             }
-            if (!foundRoutes.isEmpty()) displayRoute(foundRoutes.get(0));
-            statusLabel.setText("Found " + foundRoutes.size() + " routes");
-        } catch (Exception e) {
-            showAlert("Error: " + e.getMessage());
-            e.printStackTrace();
-        }
+        }).start();
     }
 
     private void findDijkstraRoute() {
         if (!validateSelections()) return;
         statusLabel.setText("Running Dijkstra...");
-        try {
-            List<GraphNode> route = RouteFinder.dijkstraShortestPath(getStart(), getEnd(), avoidRooms, waypoints);
-            displayResult(route, "Dijkstra");
-        } catch (Exception e) {
-            showAlert("Error: " + e.getMessage());
-            e.printStackTrace();
-        }
+        GraphNode start = getStart();
+        GraphNode end = getEnd();
+
+        new Thread(() -> {
+            try {
+                List<GraphNode> route = RouteFinder.dijkstraShortestPath(start, end, avoidRooms, waypoints);
+                Platform.runLater(() -> displayResult(route, "Dijkstra"));
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    showAlert("Error: " + e.getMessage());
+                    statusLabel.setText("Error running Dijkstra");
+                });
+            }
+        }).start();
     }
 
     private void findBFSRoute() {
         if (!validateSelections()) return;
-        statusLabel.setText("Running BFS...");
-        try {
-            List<GraphNode> route = RouteFinder.bfsShortestPath(getStart(), getEnd(), avoidRooms, waypoints);
-            displayResult(route, "BFS");
-        } catch (Exception e) {
-            showAlert("Error: " + e.getMessage());
-            e.printStackTrace();
-        }
+        statusLabel.setText("Running BFS Graph...");
+        GraphNode start = getStart();
+        GraphNode end = getEnd();
+
+        new Thread(() -> {
+            try {
+                List<GraphNode> route = RouteFinder.bfsShortestPath(start, end, avoidRooms, waypoints);
+                Platform.runLater(() -> displayResult(route, "BFS Graph"));
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    showAlert("Error: " + e.getMessage());
+                    statusLabel.setText("Error running BFS");
+                });
+            }
+        }).start();
     }
 
     private void findInterestingRoute() {
@@ -393,18 +525,28 @@ public class Main extends Application {
             return;
         }
         statusLabel.setText("Finding interesting route...");
-        try {
-            List<GraphNode> route = RouteFinder.mostInterestingRoute(graph, getStart(), getEnd(), favoriteArtists, avoidRooms, waypoints);
-            displayResult(route, "Interesting");
-        } catch (Exception e) {
-            showAlert("Error: " + e.getMessage());
-            e.printStackTrace();
-        }
+        GraphNode start = getStart();
+        GraphNode end = getEnd();
+
+        new Thread(() -> {
+            try {
+                List<GraphNode> route = RouteFinder.mostInterestingRoute(graph, start, end, favoriteArtists, avoidRooms, waypoints);
+                Platform.runLater(() -> displayResult(route, "Interesting"));
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    showAlert("Error: " + e.getMessage());
+                    statusLabel.setText("Error finding interesting route");
+                });
+            }
+        }).start();
     }
 
     private void clearMap() {
         if (mapCanvas != null) {
             mapCanvas.clearRoutes();
+            mapCanvas.setWaypoints(waypoints);
+            mapCanvas.setAvoidRooms(avoidRooms);
+            updateSelectedPoints();
         }
         routeInfoArea.clear();
         routesListView.getItems().clear();
@@ -428,23 +570,36 @@ public class Main extends Application {
     private void displayRoute(List<GraphNode> route) {
         if (mapCanvas != null) {
             mapCanvas.setAvoidRooms(avoidRooms);
+            mapCanvas.setWaypoints(waypoints);
             mapCanvas.displayRoute(route);
         }
 
         StringBuilder info = new StringBuilder();
         info.append("═══════════════════════════════════════════════════════════════\n");
-        info.append("  Route: ").append(route.size()).append(" rooms\n");
-        info.append("  Distance: ").append(String.format("%.0f", RouteFinder.calculateRouteDistance(route))).append(" units\n");
+        info.append(String.format("  ROUTE: %d rooms  |  Distance: %.0f units\n",
+                route.size(), RouteFinder.calculateRouteDistance(route)));
         info.append("═══════════════════════════════════════════════════════════════\n\n");
 
         for (int i = 0; i < route.size(); i++) {
             GraphNode node = route.get(i);
-            info.append(String.format("%2d. %s\n", i + 1, node.getRoom().getName()));
-            for (var art : node.getRoom().getArtworks()) {
-                String star = favoriteArtists.contains(art.getArtist().toLowerCase()) ? " ★" : "";
-                info.append(String.format("     🖼️ %s by %s%s\n", art.getTitle(), art.getArtist(), star));
+            boolean isWaypoint = waypoints.contains(node);
+            info.append(String.format("%2d. %s %s\n", i + 1, node.getRoom().getName(), isWaypoint ? "📍 WAYPOINT" : ""));
+            info.append(String.format("     [%s]\n", node.getRoom().getId()));
+
+            List<Artwork> artworks = node.getRoom().getArtworks();
+            if (artworks.isEmpty()) {
+                info.append("     (No artworks in this room)\n");
+            } else {
+                for (Artwork art : artworks) {
+                    boolean isFavorite = favoriteArtists.stream().anyMatch(a -> art.getArtist().toLowerCase().contains(a));
+                    info.append(String.format("        🖼️ %s by %s%s\n",
+                            art.getTitle(), art.getArtist(), isFavorite ? " ★" : ""));
+                }
             }
+            info.append("\n");
         }
+
+        info.append("═══════════════════════════════════════════════════════════════\n");
         routeInfoArea.setText(info.toString());
     }
 

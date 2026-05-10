@@ -57,7 +57,7 @@ public class BenchmarkRunner {
 
     @Benchmark
     public void benchmarkAnyRoute() {
-        routeFinder.findAnyRoute(graph, startNode, endNode, avoidRooms, waypoints);
+        routeFinder.finalize(graph, startNode, endNode, avoidRooms, waypoints);
     }
 
     @Benchmark

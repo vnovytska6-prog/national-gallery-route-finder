@@ -16,7 +16,7 @@ id;name;x;y
 16;Room 16 - A New Art for a New Nation: Dutch Painting 1600-1700;303;212
 17;Room 17 - Modern Subjects: Dutch Painting 1600-1700;300;187
 17a;Room 17a - Deceiving the Eye: Dutch Perspectives around 1650;303;171
-18;Room 18 - Peter Paul Rubens 1577-1640;336;119
+18;Room 18 - Peter Paul Rubens 1577-1640;338;118
 19;Room 19 - Land and Water: Dutch Painting 1600-1700;295;145
 20;Room 20 - A Different View of Flanders: Flemish Painting 1600-1650;296;117
 21;Room 21 - Anthony van Dyck 1599-1641;295;92
@@ -75,7 +75,14 @@ EXIT_CENTRAL;Exit - Central Hall;560;308
 LIFT_LEVEL2_WEST;Lift - Level 2 West;235;252
 LIFT_LEVEL2_CENTRAL;Lift - Level 2 Central;491;288
 LIFT_LEVEL2_EAST;Lift - Level 2 East;576;338
-TOILETS_WEST;Toilets - West;215;215
-TOILETS_CENTRAL;Toilets - Central;502;270
 SAINSBURY_LIFT;Sainsbury Wing Main Floor Lift;364;67
-AUDIO_GUIDE;
+AUDIO_GUIDE;Audio Guide;212;264
+
+LOCATELLI;Restaurant-Bar;148;589
+LOWER_SHOP;Shop;188;539
+LIFT_WC;Lift - Level 2/0;235;452
+WC_FEM;Female Toilets;185;495
+WC_MAL;Male Toilets;184;474
+BB_CHANGE;Baby Change;204;455
+WC_ACC;Accessible Toilets;216;464
+
