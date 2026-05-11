@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.util.*;
 import java.util.function.BiConsumer;
 
+// draws the gallery map and all route markers
 public class MapCanvas extends Canvas {
 
     private Graph graph;
@@ -22,7 +23,7 @@ public class MapCanvas extends Canvas {
     private Image mapImage;
     private List<int[]> pixelPath = null;
 
-    // Pixel selection for BFS
+    // pixel selection for BFS
     private boolean pixelSelectionMode = false;
     private BiConsumer<Integer, Integer> pixelSelectionCallback;
     private GraphNode selectedStart = null;
@@ -31,7 +32,7 @@ public class MapCanvas extends Canvas {
 
     public MapCanvas(Graph graph) {
         this.graph = graph;
-
+        // load map image
         InputStream stream = getClass().getResourceAsStream("/level2.png");
 
         if (stream == null) {
@@ -44,13 +45,13 @@ public class MapCanvas extends Canvas {
             setHeight(mapImage.getHeight());
         }
 
+        // handle mouse clicks for pixel bfs selection
         setOnMouseClicked(e -> {
             if (pixelSelectionMode && pixelSelectionCallback != null) {
                 int x = (int) e.getX();
                 int y = (int) e.getY();
                 pixelSelectionCallback.accept(x, y);
             } else {
-                // Отладочный вывод координат (можно убрать потом)
                 System.out.println("Clicked at: x=" + (int) e.getX() + ", y=" + (int) e.getY());
             }
         });
@@ -58,7 +59,7 @@ public class MapCanvas extends Canvas {
         drawMap();
     }
 
-    // БЕЗ МАСШТАБИРОВАНИЯ - как работало вчера!
+    // no scaling coordinates from csv match image pixels directly
     private double mapX(int x) {
         return x;
     }
@@ -71,13 +72,14 @@ public class MapCanvas extends Canvas {
         return mapImage;
     }
 
-    // Добавь этот метод (для отображения выбранных start/end):
+    // highlights selected start and end rooms on map
     public void setSelectedPoints(GraphNode start, GraphNode end) {
         this.selectedStart = start;
         this.selectedEnd = end;
         drawMap();
     }
 
+    // enables pixel selection mode for pixel bfs
     public void setPixelSelectionMode(boolean enabled, BiConsumer<Integer, Integer> callback) {
         this.pixelSelectionMode = enabled;
         this.pixelSelectionCallback = callback;
@@ -88,11 +90,12 @@ public class MapCanvas extends Canvas {
         }
     }
 
-    // НАЙДИ метод drawMap() и ЗАМЕНИ его содержимое на это:
+    // draws map image then all markers
     public void drawMap() {
         GraphicsContext gc = getGraphicsContext2D();
         gc.clearRect(0, 0, getWidth(), getHeight());
 
+        // draw background map
         if (mapImage != null) {
             gc.drawImage(mapImage, 0, 0);
         } else {
@@ -100,46 +103,40 @@ public class MapCanvas extends Canvas {
             gc.fillRect(0, 0, getWidth(), getHeight());
         }
 
-        // РИСУЕМ ТОЛЬКО ЕСЛИ showDebugNodes = true (по умолчанию false)
+        // showDebugNodes = true
         if (showDebugNodes) {
             drawNormalNodes(gc);
         }
 
-        // Избегаемые комнаты (красный крест)
-        drawAvoidRooms(gc);
+        drawAvoidRooms(gc);      // red X marks
+        drawSelectedPoints(gc);  // S and D markers
+        drawWaypoints(gc);       // W markers
 
-        // Выбранные start и end (зеленый S и красный E)
-        drawSelectedPoints(gc);
-
-        // Waypoints (оранжевый W)
-        drawWaypoints(gc);
-
-        // Пиксельный путь (если есть)
         if (pixelPath != null && !pixelPath.isEmpty()) {
             drawPixelPath(gc);
         }
 
-        // Маршрут (красная линия)
+        // roure (red)
         if (currentRoute != null && currentRoute.size() > 1) {
             drawRoute(gc);
         }
     }
 
-    // Добавь этот новый метод:
+    // draws start and end markers
     private void drawSelectedPoints(GraphicsContext gc) {
         if (selectedStart != null) {
             double x = mapX(selectedStart.getRoom().getX());
             double y = mapY(selectedStart.getRoom().getY());
-            drawMarker(gc, x, y, "S", Color.LIMEGREEN, 14);
+            drawMarker(gc, x, y, "S", Color.LIMEGREEN, 11);
         }
         if (selectedEnd != null) {
             double x = mapX(selectedEnd.getRoom().getX());
             double y = mapY(selectedEnd.getRoom().getY());
-            drawMarker(gc, x, y, "E", Color.RED, 14);
+            drawMarker(gc, x, y, "D", Color.RED, 11);
         }
     }
 
-    // Добавь этот новый метод:
+    // draws waypoint markers
     private void drawWaypoints(GraphicsContext gc) {
         if (waypoints == null) return;
         for (GraphNode wp : waypoints) {
@@ -149,6 +146,7 @@ public class MapCanvas extends Canvas {
         }
     }
 
+    //all room nodes (debug mode only)
     private void drawNormalNodes(GraphicsContext gc) {
         for (GraphNode node : graph.getAllNodes()) {
             double x = mapX(node.getRoom().getX());
@@ -169,6 +167,7 @@ public class MapCanvas extends Canvas {
         }
     }
 
+    // draws red X marks on rooms to avoid
     private void drawAvoidRooms(GraphicsContext gc) {
         for (String roomId : avoidRoomIds) {
             GraphNode node = graph.getNodeById(roomId);
@@ -186,6 +185,7 @@ public class MapCanvas extends Canvas {
         }
     }
 
+    // draws the main route as red line with numbered markers
     private void drawRoute(GraphicsContext gc) {
         if (currentRoute == null || currentRoute.size() < 2) return;
 
@@ -212,7 +212,7 @@ public class MapCanvas extends Canvas {
             if (i == 0) {
                 drawMarker(gc, x, y, "S", Color.LIMEGREEN, 13);
             } else if (i == currentRoute.size() - 1) {
-                drawMarker(gc, x, y, "E", Color.RED, 13);
+                drawMarker(gc, x, y, "D", Color.RED, 13);
             } else if (waypoints != null && waypoints.contains(node)) {
                 drawMarker(gc, x, y, "W", Color.ORANGE, 11);
             } else {
@@ -221,6 +221,7 @@ public class MapCanvas extends Canvas {
         }
     }
 
+    // draws pixel bfs path (blue line)
     private void drawPixelPath(GraphicsContext gc) {
         if (pixelPath == null || pixelPath.size() < 2) return;
 
@@ -236,9 +237,10 @@ public class MapCanvas extends Canvas {
         int[] start = pixelPath.get(0);
         int[] end = pixelPath.get(pixelPath.size() - 1);
         drawPixelMarker(gc, start[0], start[1], "S", Color.LIMEGREEN);
-        drawPixelMarker(gc, end[0], end[1], "E", Color.RED);
+        drawPixelMarker(gc, end[0], end[1], "D", Color.RED);
     }
 
+    // helper to draw pixel bfs markers
     private void drawPixelMarker(GraphicsContext gc, double x, double y, String text, Color color) {
         gc.setFill(color);
         gc.fillOval(x - 8, y - 8, 16, 16);
@@ -251,6 +253,7 @@ public class MapCanvas extends Canvas {
         gc.fillText(text, x, y + 3);
     }
 
+    // generic marker drawer
     private void drawMarker(GraphicsContext gc, double x, double y, String text, Color color, double radius) {
         gc.setFill(color);
         gc.fillOval(x - radius, y - radius, radius * 2, radius * 2);
@@ -263,29 +266,34 @@ public class MapCanvas extends Canvas {
         gc.fillText(text, x, y + 3);
     }
 
+    // shows route on map
     public void displayRoute(List<GraphNode> route) {
         this.currentRoute = route;
         this.pixelPath = null;
         drawMap();
     }
 
+    // shows pixel bfs path on map
     public void displayPixelPath(List<int[]> path) {
         this.pixelPath = path;
         this.currentRoute = null;
         drawMap();
     }
 
+    // clears all routes from map
     public void clearRoutes() {
         this.currentRoute = null;
         this.pixelPath = null;
         drawMap();
     }
 
+    // updates avoid rooms and redraws
     public void setAvoidRooms(Set<String> avoidRoomIds) {
         this.avoidRoomIds = avoidRoomIds != null ? avoidRoomIds : new HashSet<>();
         drawMap();
     }
 
+    // updates waypoints and redraws
     public void setWaypoints(List<GraphNode> waypoints) {
         this.waypoints = waypoints != null ? waypoints : new ArrayList<>();
         drawMap();

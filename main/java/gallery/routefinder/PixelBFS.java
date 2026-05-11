@@ -13,12 +13,16 @@ public class PixelBFS {
     private boolean[][] walkable;
     private int width, height;
 
+    public PixelBFS(String imagePath) {
+        this(new Image(imagePath));
+    }
+
     public PixelBFS(Image mapImage) {
         this.mapImage = mapImage;
         analyzeMap();
     }
 
-    //Analyses map to determine which pixels are walkable (white/light areas)
+    //analyses map to determine which pixels are walkable
     private void analyzeMap() {
         width = (int) mapImage.getWidth();
         height = (int) mapImage.getHeight();
@@ -33,22 +37,13 @@ public class PixelBFS {
                 int g = (argb >> 8) & 0xFF;
                 int b = argb & 0xFF;
 
-                // White/light gray = walkable (rooms, corridors)
-                // Dark areas = walls, obstacles
-                walkable[x][y] = (r > 200 && g > 200 && b > 200);
+                // dark  walkable (rooms, corridors)
+                walkable[x][y] = !(r > 250 && g > 250 && b > 250);  // all except white
             }
         }
     }
 
-    /**
-     * Finds the shortest pixel path between start and end points using BFS.
-     *
-     * @param startX starting X coordinate on the map
-     * @param startY starting Y coordinate on the map
-     * @param endX destination X coordinate
-     * @param endY destination Y coordinate
-     * @return PixelPathResult containing the path and distance
-     */
+    // Finds the shortest pixel path between start and end points using BFS.
     public PixelPathResult findShortestPath(int startX, int startY, int endX, int endY) {
         // BFS setup
         int[][] dist = new int[width][height];

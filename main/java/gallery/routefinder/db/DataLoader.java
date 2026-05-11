@@ -71,7 +71,7 @@ public class DataLoader {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
-                // Handle both semicolon and comma delimiters
+                // handle both semicolon and comma delimiters
                 String[] parts;
                 if (line.contains(";")) {
                     parts = line.split(";");

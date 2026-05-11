@@ -38,6 +38,7 @@ public class GraphNode {
         return room.getName();
     }
 
+    // two nodes are equal if they represent the same room
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

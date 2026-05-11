@@ -13,7 +13,6 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-//JMH Benchmark for RouteFinder algorith performance of different pathfinding algorithms
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @State(Scope.Benchmark)
@@ -23,13 +22,13 @@ import java.util.concurrent.TimeUnit;
 public class BenchmarkRunner {
 
     private Graph graph;
-    private RouteFinder routeFinder;
     private GraphNode startNode;
     private GraphNode endNode;
     private Set<String> avoidRooms;
     private List<GraphNode> waypoints;
     private Set<String> favoriteArtists;
 
+    // loads data once before all benchmarks
     @Setup(Level.Trial)
     public void setup() throws Exception {
         graph = DataLoader.loadFromCSV(
@@ -37,9 +36,8 @@ public class BenchmarkRunner {
                 "connections.csv",
                 "artworks.csv"
         );
-        routeFinder = new RouteFinder();
 
-        // Pick two far apart rooms for realistic testing
+        // test with two distant rooms
         startNode = graph.getNodeById("1");
         endNode = graph.getNodeById("66");
 
@@ -57,33 +55,39 @@ public class BenchmarkRunner {
 
     @Benchmark
     public void benchmarkAnyRoute() {
-        routeFinder.finalize(graph, startNode, endNode, avoidRooms, waypoints);
+        RouteFinder.findSingleRoute(startNode, endNode, avoidRooms, waypoints);
     }
 
     @Benchmark
     public void benchmarkMultipleRoutes() {
-        routeFinder.findMultipleRoutes(graph, startNode, endNode, 10, avoidRooms, waypoints);
+        RouteFinder.findMultipleRoutes(startNode, endNode, 5, avoidRooms, waypoints, null, 0, 15);
     }
 
     @Benchmark
     public void benchmarkDijkstra() {
-        routeFinder.dijkstraShortestPath(graph, startNode, endNode, avoidRooms, waypoints);
+        RouteFinder.dijkstraShortestPath(startNode, endNode, avoidRooms, waypoints);
     }
 
     @Benchmark
     public void benchmarkBFSGraph() {
-        routeFinder.bfsShortestPath(graph, startNode, endNode, avoidRooms, waypoints);
+        RouteFinder.bfsShortestPath(startNode, endNode, avoidRooms, waypoints);
     }
 
     @Benchmark
     public void benchmarkInterestingRoute() {
-        routeFinder.mostInterestingRoute(graph, startNode, endNode, favoriteArtists, avoidRooms, waypoints);
+        RouteFinder.mostInterestingRoute(graph, startNode, endNode, favoriteArtists, avoidRooms, waypoints);
+    }
+
+    @Benchmark
+    public void benchmarkCalculateRouteDistance() {
+        // Создаем простой маршрут для теста
+        List<GraphNode> route = Arrays.asList(startNode, endNode);
+        RouteFinder.calculateRouteDistance(route);
     }
 
     public static void main(String[] args) throws RunnerException {
         Options options = new OptionsBuilder()
                 .include(BenchmarkRunner.class.getSimpleName())
-                .output("benchmark_results.txt")
                 .build();
 
         new Runner(options).run();

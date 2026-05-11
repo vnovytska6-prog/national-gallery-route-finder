@@ -8,63 +8,67 @@ import java.util.*;
 
 public class RouteFinder {
 
-    //Single route (DFS)
+    //Single route DFS
     public static List<GraphNode> findSingleRoute(GraphNode from, GraphNode lookingFor, Set<String> avoid, List<GraphNode> waypoints){
-        List<List<GraphNode>> routes = findMultipleRoutes(from, lookingFor, 1, avoid, waypoints, null);
+        List<List<GraphNode>> routes = findMultipleRoutes(from, lookingFor, 1, avoid, waypoints, null, 0, 20);
         if (routes == null || routes.isEmpty()) return null;
         return routes.get(0);
     }
 
     //Find all paths using DepthFirst
-    public static List<List<GraphNode>> findMultipleRoutes(GraphNode from, GraphNode lookingFor, int max, Set<String> avoid, List<GraphNode> waypoints, List<GraphNode> encountered) {
-        List<List<GraphNode>> result=null, temp2;
+    //Find all paths using DepthFirst with depth limit
+    public static List<List<GraphNode>> findMultipleRoutes(GraphNode from, GraphNode lookingFor, int max, Set<String> avoid, List<GraphNode> waypoints, List<GraphNode> encountered, int depth, int maxDepth) {
+        List<List<GraphNode>> result = new ArrayList<>();
 
-        if(from==null) return result;
+        if (depth > maxDepth) return null;
+        if (from == null) return result;
 
+        // found destination
         if (from.equals(lookingFor)) {
-            List<GraphNode> temp=new ArrayList<>();
+            List<GraphNode> temp = new ArrayList<>();
             temp.add(from);
-            result=new ArrayList<>();
             result.add(temp);
             return result;
         }
-
-        if(encountered==null) encountered=new ArrayList<>();
+        if (encountered == null) encountered = new ArrayList<>();
         encountered.add(from);
-
-        for (GraphEdge edge: from.getEdges()){
+        // neighbors check
+        for (GraphEdge edge : from.getEdges()) {
             GraphNode neighbor = edge.getDestination();
-            //skip avoided rooms
+
+            // skip avoided rooms
             if (avoid != null && avoid.contains(neighbor.getRoom().getId())) continue;
             if (!encountered.contains(neighbor)) {
-                temp2=findMultipleRoutes(neighbor, lookingFor, max, avoid, waypoints, new ArrayList<>(encountered));
+                List<List<GraphNode>> subPaths = findMultipleRoutes(neighbor, lookingFor, max, avoid, waypoints, new ArrayList<>(encountered), depth + 1, maxDepth);
 
-                if (temp2 != null) {
-                    for(List<GraphNode> list : temp2) {
-                        list.addFirst(from);
+                if (subPaths != null && !subPaths.isEmpty()) {
+                    for (List<GraphNode> path : subPaths) {
+                        path.add(0, from);
 
-                        //if route contains all waypoints
+                        // check waypoints
                         if (waypoints != null && !waypoints.isEmpty()) {
                             boolean hasAllWaypoints = true;
                             for (GraphNode wp : waypoints) {
-                                if (!list.contains(wp)) {
+                                if (!path.contains(wp)) {
                                     hasAllWaypoints = false;
-                                    break;}
+                                    break;
+                                }
                             }
-                            if (!hasAllWaypoints) continue; }
-                    }
+                            if (!hasAllWaypoints) continue;
+                        }
 
-                        if(result==null) result=temp2;
-                    else if (result.size()<max) {
-                        result.addAll(temp2);
+                        result.add(path);
+                        if (result.size() >= max) {
+                            return result;
+                        }
                     }
                 }
             }
         }
-        return result;
+        return result.isEmpty() ? null : result;
     }
 
-    //Calculating route distance
+    //sums up edge distances along the route
     public static double calculateRouteDistance(List<GraphNode> route){
         if (route == null || route.size() < 2) return 0;
         double routeDistance=0;
@@ -81,18 +85,18 @@ public class RouteFinder {
         return routeDistance;
     }
 
-    //Find the shortest path using BreadthFirst
+    //bfs shortest path (fewest edges), supports waypoints
     public static List<GraphNode> bfsShortestPath(GraphNode from, GraphNode lookingFor, Set<String> avoid, List<GraphNode> waypoints){
         if (from == null || lookingFor == null) return null;
         List<GraphNode> resultPath = new ArrayList<>();
 
-        // Handle waypoints in sequence
+        // handle waypoints in sequence
         if (waypoints != null && !waypoints.isEmpty()) {
             GraphNode currentStart = from;
             for(GraphNode waypoint : waypoints) {
                 List<GraphNode> segment = bfsShortestPathSegment(currentStart, waypoint, avoid);
                 if (segment == null) return null;
-                // Don't duplicate the start of next segment
+                // don't duplicate start of next segment
                 if (resultPath.isEmpty()) {
                     resultPath.addAll(segment);
                 } else {
@@ -100,18 +104,20 @@ public class RouteFinder {
                 }
                 currentStart = waypoint;
             }
-            // Final segment to destination
+            // final segment to destination
             List<GraphNode> finalSegment = bfsShortestPathSegment(currentStart, lookingFor, avoid);
             if (finalSegment == null) return null;
             resultPath.addAll(finalSegment.subList(1, finalSegment.size()));
         } else {
-            // Direct path without waypoints
+            // direct path without waypoints
             return bfsShortestPathSegment(from, lookingFor, avoid);
         }
 
         return resultPath;
     }
 
+
+    // bfs helper uses queue, expands level by level
     private static List<GraphNode> bfsShortestPathSegment(GraphNode from, GraphNode lookingFor, Set<String> avoid) {
         //BFS using agenda of paths
         Queue<List<GraphNode>> agenda = new LinkedList<>();
@@ -132,7 +138,7 @@ public class RouteFinder {
             for (GraphEdge edge : current.getEdges()) {
                 GraphNode neighbor = edge.getDestination();
 
-                // Skip avoided rooms
+                // skip avoided rooms
                 if (avoid != null && avoid.contains(neighbor.getRoom().getId())) continue;
 
                 if (!visited.contains(neighbor)) {
@@ -152,7 +158,7 @@ public class RouteFinder {
 
         List<GraphNode> resultPath = new ArrayList<>();
 
-        // Handle waypoints in sequence
+        // handle waypoints in sequence
         if (waypoints != null && !waypoints.isEmpty()) {
             GraphNode currentStart = from;
             for (GraphNode waypoint : waypoints) {
@@ -175,13 +181,14 @@ public class RouteFinder {
         return resultPath;
     }
 
+    //dijkstra uses priority queue, always picks smallest distance
     private static List<GraphNode> dijkstraShortestPathSegment(GraphNode from, GraphNode lookingFor, Set<String> avoid) {
         Map<GraphNode, Double> distances = new HashMap<>();
         Map<GraphNode, GraphNode> previous = new HashMap<>();
         PriorityQueue<GraphNode> pq = new PriorityQueue<>(Comparator.comparingDouble(distances::get));
         Set<GraphNode> settled = new HashSet<>();
 
-        // Get all reachable nodes
+        // get all reachable nodes
         Set<GraphNode> allNodes = getAllReachableNodes(from);
         for (GraphNode node : allNodes) {
             distances.put(node, Double.POSITIVE_INFINITY);
@@ -203,7 +210,7 @@ public class RouteFinder {
             for (GraphEdge edge : current.getEdges()) {
                 GraphNode neighbor = edge.getDestination();
 
-                // Skip avoided rooms (condition was reversed)
+                // Skip avoided rooms
                 if (avoid != null && avoid.contains(neighbor.getRoom().getId())) continue;
 
                 if (!settled.contains(neighbor)) {
@@ -219,6 +226,7 @@ public class RouteFinder {
         return null;
     }
 
+    // collects all nodes reachable from start
     private static Set<GraphNode> getAllReachableNodes(GraphNode start) {
         Set<GraphNode> nodes = new HashSet<>();
         Queue<GraphNode> queue = new LinkedList<>();
@@ -236,6 +244,7 @@ public class RouteFinder {
         return nodes;
     }
 
+    // builds path from previous map
     private static List<GraphNode> reconstructPath(Map<GraphNode, GraphNode> previous, GraphNode target) {
         List<GraphNode> path = new ArrayList<>();
         GraphNode current = target;
@@ -246,7 +255,7 @@ public class RouteFinder {
         return path;
     }
 
-    //Most interesting Route using Dijkstra's
+    //most interesting route using Dijkstra's passing through rooms with favorite artists
     public static List<GraphNode> mostInterestingRoute(Graph graph, GraphNode from, GraphNode lookingFor, Set<String> artists , Set<String> avoid, List<GraphNode> waypoints){
         List<GraphNode> rooms = new ArrayList<>();
             if (artists != null) {
@@ -258,7 +267,7 @@ public class RouteFinder {
                 }
             }
             if (waypoints != null) { rooms.addAll(waypoints);}
-            // Remove duplicates
+            // removing duplicates
             List<GraphNode> uniqueRooms = new ArrayList<>(new LinkedHashSet<>(rooms));
             return dijkstraShortestPath(from, lookingFor, avoid, uniqueRooms);
         }
