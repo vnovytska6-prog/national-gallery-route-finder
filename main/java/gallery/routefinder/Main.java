@@ -353,7 +353,7 @@ public class Main extends Application {
 
             new Thread(() -> {
                 try {
-                    PixelBFS pixelBFS = new PixelBFS("/level2bw.png");
+                    PixelBFS pixelBFS = new PixelBFS("/level2_bw.png");
                     PixelBFS.PixelPathResult result = pixelBFS.findShortestPath(
                             pixelStart[0], pixelStart[1], pixelEnd[0], pixelEnd[1]
                     );
