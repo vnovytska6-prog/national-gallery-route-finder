@@ -40,4 +40,4 @@ The demo shows route generation using different algorithms, required waypoints a
 
 ## What I Learned
 
-This project strengthened my understanding of graph data structures, route-finding algorithms and object-oriented programming. I also gained experience creating a JavaFX interface, loading data from CSV files and comparing different approaches to the same routing problem.
+Building this project helped me understand how DFS, BFS and Dijkstra’s algorithm can produce different routes through the same graph. I learned how to include waypoints and rooms to avoid while keeping the route information and map display updated. I also gained practical experience with JavaFX, Maven and loading application data from CSV files.
